@@ -1,4 +1,5 @@
 .idea/
+build/
 composeApp/build/
 composeApp/build/bin/iosSimulatorArm64/debugFramework/ComposeApp.framework/ComposeApp
 composeApp/build/xcode-frameworks/Debug/iphonesimulator18.1/ComposeApp.framework/ComposeApp
