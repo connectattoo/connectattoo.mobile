@@ -16,7 +16,7 @@ fun App() {
         Surface(
             modifier = Modifier
                 .fillMaxSize()
-                .windowInsetsPadding(WindowInsets(-10))
+                .windowInsetsPadding(WindowInsets(0))
 
         ) {
             AccountManager()

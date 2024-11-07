@@ -33,7 +33,7 @@ import org.jetbrains.compose.resources.painterResource
 fun SplashScreen(navController: NavHostController) {
     GlobalScope.launch(Dispatchers.Main) {
         delay(2000)
-        navController.navigate("login")
+        navController.navigate("welcomepage")
     }
     Box(
         modifier = Modifier
