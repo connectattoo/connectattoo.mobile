@@ -1,4 +1,5 @@
 package br.com.connectattoo.theme
+
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme
@@ -7,6 +8,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+
 @Immutable
 data class ExtendedColors(
     val black: Color,
@@ -117,7 +119,7 @@ val DarkColors = Colors(
 @Composable
 fun ConnectattooTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val colors = if (darkTheme) DarkColors else LightColors
     val extendedColors = if (darkTheme) DarkExtendedColors else LightExtendedColors
@@ -126,7 +128,7 @@ fun ConnectattooTheme(
         MaterialTheme(
             colors = colors,
             shapes = Shapes,
-            content = content
+            content = content,
         )
     }
 }

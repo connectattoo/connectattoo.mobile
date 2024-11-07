@@ -1,7 +1,11 @@
 package br.com.connectattoo.navigation
 
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import br.com.connectattoo.theme.ConnectattooTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -9,7 +13,12 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Preview
 fun App() {
     ConnectattooTheme {
-        Surface {
+        Surface(
+            modifier = Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(WindowInsets(-10))
+
+        ) {
             AccountManager()
         }
     }
