@@ -46,6 +46,9 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
 
+            //material 3
+            implementation(compose.material3)
+
             //ktor
             implementation(libs.ktor.client.core)
 
@@ -55,6 +58,7 @@ kotlin {
 
             //navgation
             implementation(libs.navigation.compose)
+
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
