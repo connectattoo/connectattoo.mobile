@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import br.com.connectattoo.Greeting
+import br.com.connectattoo.theme.extendedColors
 import connectattoo.composeapp.generated.resources.Res
 import connectattoo.composeapp.generated.resources.compose_multiplatform
 import org.jetbrains.compose.resources.painterResource

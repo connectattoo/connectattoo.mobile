@@ -7,44 +7,89 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
-
 @Immutable
 data class ExtendedColors(
-    val snowWhite: Color,
-    val deepOcean: Color,
-    val skyBlue: Color,
-    val nightBlue: Color,
-    val dialogBackground: Color
+    val black: Color,
+    val black100: Color,
+    val black200: Color,
+    val black500: Color,
+    val black800: Color,
+    val black900: Color,
+    val black50: Color,
+    val white: Color,
+    val red: Color,
+    val orange: Color,
+    val deepPurple: Color,
+    val purple50: Color,
+    val purple100: Color,
+    val purple300: Color,
+    val purple500: Color,
+    val purple800: Color,
+    val purple700: Color,
+    val purple900: Color,
+    val gray400: Color,
+    val green: Color,
+    val black25: Color
 )
 
 val LocalExtendedColors = staticCompositionLocalOf<ExtendedColors> {
     error("No ExtendedColors provided")
 }
-
 val LightExtendedColors = ExtendedColors(
-    snowWhite = Color(0xFFFFFFFF),
-    deepOcean = Color(0xFF001B2E),
-    skyBlue = Color(0xFF81D4FA),
-    nightBlue = Color(0xFF102027),
-    dialogBackground = Color(0xFFF1F1F1)
+    black = Color(0xFF000000),
+    black100 = Color(0xFFC8C8C8),
+    black200 = Color(0xFFACACAC),
+    black500 = Color(0xFF757575),
+    black800 = Color(0xFF2D2D2D),
+    black900 = Color(0xFF1E1E1E),
+    black50 = Color(0xFFE4E4E4),
+    white = Color(0xFFFFFFFF),
+    red = Color(0xFFEF5350),
+    orange = Color(0xFFFB6500),
+    deepPurple = Color(0xFF673AB7),
+    purple50 = Color(0xFFF8F2FF),
+    purple100 = Color(0xFFEBD7FF),
+    purple300 = Color(0xFFC388FD),
+    purple500 = Color(0xFF7A32C1),
+    purple800 = Color(0xFF460D7D),
+    purple700 = Color(0xFF601EA1),
+    purple900 = Color(0xFF30045C),
+    gray400 = Color(0xFFCBC9CA),
+    green = Color(0xFF037D00),
+    black25 = Color(0xFFEFEFEF)
 )
 
 val DarkExtendedColors = ExtendedColors(
-    snowWhite = Color(0xFF9E9E9E),
-    deepOcean = Color(0xFF001B2E),
-    skyBlue = Color(0xFF4FC3F7),
-    nightBlue = Color(0xFF000A12),
-    dialogBackground = Color(0xFF303030)
+    black = Color(0xFF000000),
+    black100 = Color(0xFFC8C8C8),
+    black200 = Color(0xFFACACAC),
+    black500 = Color(0xFF757575),
+    black800 = Color(0xFF2D2D2D),
+    black900 = Color(0xFF1E1E1E),
+    black50 = Color(0xFFE4E4E4),
+    white = Color(0xFFFFFFFF),
+    red = Color(0xFFEF5350),
+    orange = Color(0xFFFB6500),
+    deepPurple = Color(0xFF673AB7),
+    purple50 = Color(0xFFF8F2FF),
+    purple100 = Color(0xFFEBD7FF),
+    purple300 = Color(0xFFC388FD),
+    purple500 = Color(0xFF7A32C1),
+    purple800 = Color(0xFF460D7D),
+    purple700 = Color(0xFF601EA1),
+    purple900 = Color(0xFF30045C),
+    gray400 = Color(0xFFCBC9CA),
+    green = Color(0xFF037D00),
+    black25 = Color(0xFFEFEFEF)
 )
-
 val LightColors = Colors(
-    primary = Color(0xFF7C54A7),
+    primary = Color(0xFF673AB7), // deepPurple
     primaryVariant = Color(0xFF512DA8),
-    secondary = Color(0xFFB90063),
+    secondary = Color(0xFFFB6500), // orange
     secondaryVariant = Color(0xFF7B1FA2),
-    background = Color(0xFFFAFAFA),
+    background = Color(0xFFE4E4E4), // black50
     surface = Color(0xFFFFFFFF),
-    error = Color(0xFFFF917A),
+    error = Color(0xFFEF5350), // red
     onPrimary = Color(0xFFFFFFFF),
     onSecondary = Color(0xFFFFFFFF),
     onBackground = Color(0xFF201A1B),
@@ -54,14 +99,14 @@ val LightColors = Colors(
 )
 
 val DarkColors = Colors(
-    primary = Color(0xFFFFFFFF),
+    primary = Color(0xFF7A32C1), // purple500
     primaryVariant = Color(0xFFB90063),
     secondary = Color(0xFFFF4081),
     secondaryVariant = Color(0xFF512DA8),
-    background = Color(0xFF9A0963),
-    surface = Color(0xFF77084D),
-    error = Color(0xFFFF917A),
-    onPrimary = Color(0xFFB90063),
+    background = Color(0xFF1E1E1E), // black900
+    surface = Color(0xFF2D2D2D), // black800
+    error = Color(0xFFEF5350), // red
+    onPrimary = Color(0xFFFFFFFF),
     onSecondary = Color(0xFFFFFFFF),
     onBackground = Color(0xFFFFFFFE),
     onSurface = Color(0xFFFFFFFF),
