@@ -35,8 +35,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.com.connectattoo.components.ImageLogo
 import br.com.connectattoo.theme.extendedColors
@@ -44,6 +42,8 @@ import connectattoo.composeapp.generated.resources.Layer_1
 import connectattoo.composeapp.generated.resources.Res
 import connectattoo.composeapp.generated.resources.Vector
 import connectattoo.composeapp.generated.resources.image_splash
+import network.chaintech.sdpcomposemultiplatform.sdp
+import network.chaintech.sdpcomposemultiplatform.ssp
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
@@ -80,7 +80,7 @@ fun WelcomePage(navController: NavHostController) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 30.dp),
+                .padding(top = 10.sdp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
@@ -98,26 +98,26 @@ fun WelcomePage(navController: NavHostController) {
                         .fillMaxWidth()
                         .fillMaxHeight()
                         .padding(
-                            top = 80.dp,
-                            start = 16.dp,
-                            end = 16.dp,
+                            top = 50.sdp,
+                            start = 16.sdp,
+                            end = 16.sdp,
                         ),
                     content = {
                         item {
                             ImageLogo()
-                            Spacer(modifier = Modifier.padding(30.dp))
+                            Spacer(modifier = Modifier.padding(15.sdp))
                         }
                         item {
                             Text(
                                 text = "VAMOS COMEÇAR, SEJA BEM-VINDO!",
-                                fontSize = 34.sp,
+                                fontSize = 25.ssp,
                                 fontWeight = FontWeight(900),
                                 textAlign = TextAlign.Center,
-                                lineHeight = 35.sp,
+                                lineHeight = 25.ssp,
                                 minLines = 2,
                                 modifier = Modifier.fillMaxWidth()
                             )
-                            Spacer(modifier = Modifier.padding(15.dp))
+                            Spacer(modifier = Modifier.padding(15.sdp))
                         }
                         item {
                             Text(
@@ -136,13 +136,14 @@ fun WelcomePage(navController: NavHostController) {
 
                                     append(" em busca do tatuador ideal?")
                                 },
-                                fontSize = 16.sp,
+                                fontSize = 14.ssp,
+                                lineHeight = 20.ssp,
                                 textAlign = TextAlign.Center,
                                 modifier = Modifier.fillMaxWidth()
                             )
                         }
                         item {
-                            Spacer(modifier = Modifier.padding(15.dp))
+                            Spacer(modifier = Modifier.padding(25.sdp))
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth(),
@@ -153,9 +154,9 @@ fun WelcomePage(navController: NavHostController) {
                                         navController.navigate("login")
                                     },
                                     modifier = Modifier.weight(1f)
-                                        .size(170.dp).height(500.dp),
-                                    contentPadding = PaddingValues(vertical = 8.dp),
-                                    shape = RoundedCornerShape(8.dp),
+                                        .size(130.sdp).height(450.sdp),
+                                    contentPadding = PaddingValues(vertical = 8.sdp),
+                                    shape = RoundedCornerShape(8.sdp),
 
                                     colors = ButtonDefaults.buttonColors(
                                         containerColor = MaterialTheme.extendedColors.purple500
@@ -165,27 +166,27 @@ fun WelcomePage(navController: NavHostController) {
                                         Icon(
                                             painter = painterResource(Res.drawable.Vector),
                                             contentDescription = "Icone do tatuador",
-                                            modifier = Modifier.size(84.dp)
+                                            modifier = Modifier.size(84.sdp)
                                         )
-                                        Spacer(modifier = Modifier.height(4.dp))
+                                        Spacer(modifier = Modifier.height(4.sdp))
                                         Text(
                                             text = "TATUADOR",
-                                            fontSize = 13.sp,
+                                            fontSize = 13.ssp,
                                             color = Color.White,
                                             fontWeight = FontWeight(800)
                                         )
                                     }
                                 }
-                                Spacer(modifier = Modifier.padding(5.dp))
+                                Spacer(modifier = Modifier.padding(5.sdp))
 
                                 Button(
                                     onClick = {
                                         navController.navigate("login")
                                     },
                                     modifier = Modifier.weight(1f)
-                                        .size(170.dp).height(500.dp),
-                                    contentPadding = PaddingValues(vertical = 8.dp),
-                                    shape = RoundedCornerShape(8.dp),
+                                        .size(130.sdp).height(450.sdp),
+                                    contentPadding = PaddingValues(vertical = 8.sdp),
+                                    shape = RoundedCornerShape(8.sdp),
 
                                     colors = ButtonDefaults.buttonColors(
                                         containerColor = MaterialTheme.extendedColors.purple500
@@ -195,12 +196,12 @@ fun WelcomePage(navController: NavHostController) {
                                         Icon(
                                             painter = painterResource(Res.drawable.Layer_1),
                                             contentDescription = "Icone do tatuador",
-                                            modifier = Modifier.size(84.dp)
+                                            modifier = Modifier.size(84.sdp)
                                         )
-                                        Spacer(modifier = Modifier.height(4.dp))
+                                        Spacer(modifier = Modifier.height(4.sdp))
                                         Text(
                                             text = "CLIENTE",
-                                            fontSize = 13.sp,
+                                            fontSize = 13.ssp,
                                             color = Color.White,
                                             fontWeight = FontWeight(800)
                                         )
