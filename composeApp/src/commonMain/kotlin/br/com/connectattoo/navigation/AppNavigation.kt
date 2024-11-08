@@ -32,3 +32,11 @@ fun AccountManager() {
         }
     )
 }
+@Composable
+fun PresentationManager() {
+    ConnectattooTheme(
+        content = {
+            Presentation()
+        }
+    )
+}
