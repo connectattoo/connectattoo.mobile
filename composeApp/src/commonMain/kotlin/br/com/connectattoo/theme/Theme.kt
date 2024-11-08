@@ -85,14 +85,14 @@ val DarkExtendedColors = ExtendedColors(
     black25 = Color(0xFFEFEFEF)
 )
 val LightColors = Colors(
-    primary = Color(0xFF673AB7), // deepPurple
-    primaryVariant = Color(0xFF512DA8),
+    primary = Color(0xFF7A32C1), // purple500
+    primaryVariant = Color(0xFF7A32C1),
     secondary = Color(0xFFFB6500), // orange
     secondaryVariant = Color(0xFF7B1FA2),
     background = Color(0xFFE4E4E4), // black50
     surface = Color(0xFFFFFFFF),
     error = Color(0xFF000080),
-    onPrimary = Color(0xFFFFFFFF),
+    onPrimary = Color(0xFF7A32C1),
     onSecondary = Color(0xFFFFFFFF),
     onBackground = Color(0xFF201A1B),
     onSurface = Color(0x99000000),

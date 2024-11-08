@@ -4,6 +4,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,9 +16,12 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.navigation.NavController
+import br.com.connectattoo.components.ButtonBackgroundPurple
+import br.com.connectattoo.components.ButtonLigth
 import br.com.connectattoo.components.DateInputText
 import br.com.connectattoo.components.ImageLogo
 import br.com.connectattoo.components.InputText
@@ -45,7 +49,7 @@ fun Screen(navController: NavController, viewModel: RegisterViewModel) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(start = 20.sdp, end = 20.sdp, top = 30.sdp),
+                    .padding(start = 20.sdp, end = 20.sdp, top = 30.sdp, bottom = 50.sdp),
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Top,
             ) {
@@ -147,6 +151,32 @@ fun Screen(navController: NavController, viewModel: RegisterViewModel) {
                     )
 
                 }
+                item {
+
+                    Spacer(modifier = Modifier.padding(top = 10.sdp))
+                    ButtonBackgroundPurple(
+                        submit = { navController.popBackStack() },
+                        enableButton = true,
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        text = "Criar Conta",
+                        textColor = Color.White
+                    )
+
+                }
+                item {
+
+                    Spacer(modifier = Modifier.padding(top = 10.sdp))
+                    ButtonLigth(
+                        submit = { navController.popBackStack() },
+                        enableButton = true,
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        text = "Cancelar",
+                    )
+
+                }
+
 
             }
         }
