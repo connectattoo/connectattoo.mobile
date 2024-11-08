@@ -35,6 +35,7 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
             implementation(libs.kotlinx.coroutines.android)
+
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -58,6 +59,9 @@ kotlin {
 
             //navgation
             implementation(libs.navigation.compose)
+
+            //sdp - ssp
+            implementation("network.chaintech:sdp-ssp-compose-multiplatform:1.0.4")
 
         }
         iosMain.dependencies {
