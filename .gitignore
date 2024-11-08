@@ -1,0 +1,11 @@
+.idea/
+build/
+composeApp/build/
+.gradle/
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+*.klib
+/test-results/
+*.log
