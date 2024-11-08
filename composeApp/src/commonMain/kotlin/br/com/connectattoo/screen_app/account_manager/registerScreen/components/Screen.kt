@@ -41,7 +41,6 @@ fun Screen(navController: NavController, viewModel: RegisterViewModel) {
 
         Column(
             modifier = Modifier
-                .systemBarsPadding()
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top,
@@ -49,7 +48,7 @@ fun Screen(navController: NavController, viewModel: RegisterViewModel) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(start = 20.sdp, end = 20.sdp, top = 30.sdp, bottom = 50.sdp),
+                    .padding(start = 16.sdp, end = 16.sdp, top = 16.sdp),
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Top,
             ) {
@@ -174,6 +173,7 @@ fun Screen(navController: NavController, viewModel: RegisterViewModel) {
                             .fillMaxSize(),
                         text = "Cancelar",
                     )
+                    Spacer(modifier = Modifier.padding(top = 10.sdp))
 
                 }
 

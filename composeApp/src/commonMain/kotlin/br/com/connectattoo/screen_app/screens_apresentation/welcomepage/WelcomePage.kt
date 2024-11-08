@@ -151,7 +151,7 @@ fun WelcomePage(navController: NavHostController) {
                             ) {
                                 Button(
                                     onClick = {
-                                        navController.navigate("login")
+                                        navController.navigate("account_manager")
                                     },
                                     modifier = Modifier.weight(1f)
                                         .size(130.sdp).height(450.sdp),
@@ -159,7 +159,8 @@ fun WelcomePage(navController: NavHostController) {
                                     shape = RoundedCornerShape(8.sdp),
 
                                     colors = ButtonDefaults.buttonColors(
-                                        containerColor = MaterialTheme.extendedColors.purple500
+                                        containerColor = MaterialTheme.extendedColors.purple500,
+                                        contentColor = Color.White
                                     ),
                                 ) {
                                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -181,7 +182,7 @@ fun WelcomePage(navController: NavHostController) {
 
                                 Button(
                                     onClick = {
-                                        navController.navigate("login")
+                                        navController.navigate("account_manager")
                                     },
                                     modifier = Modifier.weight(1f)
                                         .size(130.sdp).height(450.sdp),
@@ -189,7 +190,8 @@ fun WelcomePage(navController: NavHostController) {
                                     shape = RoundedCornerShape(8.sdp),
 
                                     colors = ButtonDefaults.buttonColors(
-                                        containerColor = MaterialTheme.extendedColors.purple500
+                                        containerColor = MaterialTheme.extendedColors.purple500,
+                                        contentColor = Color.White
                                     ),
                                 ) {
                                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
