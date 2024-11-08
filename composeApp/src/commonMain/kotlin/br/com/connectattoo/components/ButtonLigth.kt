@@ -17,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import br.com.connectattoo.theme.extendedColors
 import network.chaintech.sdpcomposemultiplatform.sdp
 import network.chaintech.sdpcomposemultiplatform.ssp
 
@@ -28,7 +27,7 @@ fun ButtonLigth(
     modifier: Modifier = Modifier,
     text: String = "Button",
     buttonColor: ButtonColors = ButtonDefaults.buttonColors(Color.White),
-    textColor: Color = androidx.compose.material.MaterialTheme.colors.primary,
+    textColor: Color = MaterialTheme.colorScheme.primary,
     isLoading: Boolean = false
 ) {
     Row(
@@ -44,7 +43,7 @@ fun ButtonLigth(
             shape = CircleShape,
             border = BorderStroke(
                 width = 2.sdp,
-                color = androidx.compose.material.MaterialTheme.colors.primary,
+                color = MaterialTheme.colorScheme.primary,
             ),
 
             colors = buttonColor,

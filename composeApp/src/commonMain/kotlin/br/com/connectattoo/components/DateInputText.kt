@@ -9,10 +9,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -109,12 +109,13 @@ fun DateInputText(
                     keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Number
                     ),
-                    colors = TextFieldDefaults.textFieldColors(
+                    /*colors = TextFieldDefaults.colors(
+
                         backgroundColor = Color.Transparent,
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent,
                         cursorColor = MaterialTheme.colorScheme.primary
-                    )
+                    )*/
                 )
 
 

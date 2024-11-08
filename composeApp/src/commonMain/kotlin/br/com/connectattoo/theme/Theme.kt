@@ -1,8 +1,10 @@
 package br.com.connectattoo.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.Colors
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.ColorScheme
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
@@ -84,37 +86,33 @@ val DarkExtendedColors = ExtendedColors(
     green = Color(0xFF037D00),
     black25 = Color(0xFFEFEFEF)
 )
-val LightColors = Colors(
-    primary = Color(0xFF7A32C1), // purple500
-    primaryVariant = Color(0xFF7A32C1),
-    secondary = Color(0xFFFB6500), // orange
-    secondaryVariant = Color(0xFF7B1FA2),
-    background = Color(0xFFE4E4E4), // black50
-    surface = Color(0xFFFFFFFF),
-    error = Color(0xFF000080),
-    onPrimary = Color(0xFF7A32C1),
-    onSecondary = Color(0xFFFFFFFF),
-    onBackground = Color(0xFF201A1B),
-    onSurface = Color(0x99000000),
-    onError = Color(0xFFFFFFFF),
-    isLight = true
-)
+val LightColors: ColorScheme
+    @Composable get() = lightColorScheme(
+        primary = Color(0xFF7A32C1), // purple500
+        secondary = Color(0xFFFB6500), // orange
+        background = Color(0xFFE4E4E4), // black50
+        surface = Color(0xFFFFFFFF),
+        error = Color(0xFF000080),
+        onPrimary = Color(0xFF7A32C1),
+        onSecondary = Color(0xFFFFFFFF),
+        onBackground = Color(0xFF201A1B),
+        onSurface = Color(0x99000000),
+        onError = Color(0xFFFFFFFF),
+    )
 
-val DarkColors = Colors(
-    primary = Color(0xFF7A32C1), // purple500
-    primaryVariant = Color(0xFFB90063),
-    secondary = Color(0xFFFF4081),
-    secondaryVariant = Color(0xFF512DA8),
-    background = Color(0xFF1E1E1E), // black900
-    surface = Color(0xFF2D2D2D), // black800
-    error = Color(0xFFEF5350), // red
-    onPrimary = Color(0xFFFFFFFF),
-    onSecondary = Color(0xFFFFFFFF),
-    onBackground = Color(0xFFFFFFFE),
-    onSurface = Color(0xFFFFFFFF),
-    onError = Color(0xFFFFFFFF),
-    isLight = false
-)
+val DarkColors: ColorScheme
+    @Composable get() = darkColorScheme(
+        primary = Color(0xFF7A32C1), // purple500
+        secondary = Color(0xFFFF4081),
+        background = Color(0xFF1E1E1E), // black900
+        surface = Color(0xFF2D2D2D), // black800
+        error = Color(0xFFEF5350), // red
+        onPrimary = Color(0xFFFFFFFF),
+        onSecondary = Color(0xFFFFFFFF),
+        onBackground = Color(0xFFFFFFFE),
+        onSurface = Color(0xFFFFFFFF),
+        onError = Color(0xFFFFFFFF),
+    )
 
 @Composable
 fun ConnectattooTheme(
@@ -126,7 +124,7 @@ fun ConnectattooTheme(
 
     CompositionLocalProvider(LocalExtendedColors provides extendedColors) {
         MaterialTheme(
-            colors = colors,
+            colorScheme = colors,
             shapes = Shapes,
             content = content,
         )

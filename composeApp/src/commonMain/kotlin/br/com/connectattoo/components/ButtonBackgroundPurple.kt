@@ -26,7 +26,7 @@ fun ButtonBackgroundPurple(
     enableButton: Boolean,
     modifier: Modifier = Modifier,
     text: String = "Button",
-    buttonColor: ButtonColors = ButtonDefaults.buttonColors(androidx.compose.material.MaterialTheme.colors.primary),
+    buttonColor: ButtonColors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary),
     textColor: Color = Color.White,
     isLoading: Boolean = false
 ) {
@@ -43,7 +43,7 @@ fun ButtonBackgroundPurple(
             shape = CircleShape,
             border = BorderStroke(
                 width = 2.sdp,
-                color = androidx.compose.material.MaterialTheme.colors.primary,
+                color = MaterialTheme.colorScheme.primary,
             ),
 
             colors = buttonColor,
