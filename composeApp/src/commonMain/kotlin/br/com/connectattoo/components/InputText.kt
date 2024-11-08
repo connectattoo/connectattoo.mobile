@@ -166,7 +166,7 @@ fun InputText(
                     modifier = Modifier.padding(top = 6.sdp, bottom = 6.sdp, start = 10.sdp)
                 )
             }
-        } else if (isPassword) {
+        } else if (isPassword && titleText == "Senha") {
             Text(
                 "*Mínimo de 8 caracteres, com 1 símbolo especial, 1 letra maiúscula, 1 letra minúscula e um numeral",
                 color = MaterialTheme.colorScheme.outline,

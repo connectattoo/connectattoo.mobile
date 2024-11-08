@@ -121,7 +121,7 @@ fun Screen(navController: NavController, viewModel: RegisterViewModel) {
                         isError = !viewModel.state.repeatedPasswordError.isNullOrEmpty(),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .testTag("input_password"),
+                            .testTag("input_confirmation_password"),
                         isPassword = true,
                         onEvent = { it: String ->
                             viewModel.onEvent(

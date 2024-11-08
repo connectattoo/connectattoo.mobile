@@ -19,10 +19,10 @@ abstract class RegisterViewModel : ViewModel() {
 
     //abstract fun success(resultPostRegister: User)
    // abstract fun failed(exception: Throwable?)
-    //abstract fun submitData()
+    abstract fun submitData()
 
     abstract fun onEvent(event: RegisterFormEvent)
-    /*
+
     abstract fun enableButton(): Boolean
     abstract fun change(
         name: String? = null,
@@ -30,7 +30,8 @@ abstract class RegisterViewModel : ViewModel() {
         email: String? = null,
         phone: String? = null,
         password: String? = null,
+        birthDate: String? = null,
         repeatedPassword: String? = null,
         privacy: Boolean? = null
-    )*/
+    )
 }

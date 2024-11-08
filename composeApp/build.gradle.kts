@@ -97,6 +97,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.annotations)
+    implementation(libs.annotations)
     debugImplementation(compose.uiTooling)
 }
 

@@ -17,9 +17,31 @@ class FakeRegisterViewModel : RegisterViewModel() {
     override val taskState: StateFlow<TaskState>
         get() = TODO("Not yet implemented")
 
+    override fun submitData() {
+        TODO("Not yet implemented")
+    }
+
     override fun onEvent(event: RegisterFormEvent) {
         TODO("Not yet implemented")
     }
+
+    override fun enableButton(): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun change(
+        name: String?,
+        lastName: String?,
+        email: String?,
+        phone: String?,
+        password: String?,
+        birthDate: String?,
+        repeatedPassword: String?,
+        privacy: Boolean?
+    ) {
+        TODO("Not yet implemented")
+    }
+
 
 
 }
