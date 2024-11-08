@@ -92,7 +92,7 @@ val LightColors: ColorScheme
         secondary = Color(0xFFFB6500), // orange
         background = Color(0xFFE4E4E4), // black50
         surface = Color(0xFFFFFFFF),
-        error = Color(0xFF000080),
+        error = Color(0xFFEF5350),
         onPrimary = Color(0xFF7A32C1),
         onSecondary = Color(0xFFFFFFFF),
         onBackground = Color(0xFF201A1B),

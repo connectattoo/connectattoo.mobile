@@ -3,7 +3,6 @@ package br.com.connectattoo.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,6 +35,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import br.com.connectattoo.ui.theme.extendedColors
 import connectattoo.composeapp.generated.resources.Res
 import connectattoo.composeapp.generated.resources.eye_visibility_off
 import connectattoo.composeapp.generated.resources.eye_visibility_on
@@ -60,6 +60,7 @@ fun InputText(
 ) {
     var showPassword by remember { mutableStateOf(false) }
     val colorBorder = MaterialTheme.colorScheme.outline
+    val colorBorderGreen = MaterialTheme.extendedColors.green
 
     Column(modifier = modifier) {
         Row {
@@ -87,15 +88,15 @@ fun InputText(
                             width = 1.dp.toPx(),
                         )
                         drawRoundRect(
-                            color = if (isError) Color.Transparent else colorBorder,
+                            color = if (isError) Color.Transparent else if (!isError && textValue.isNotEmpty()) Color.Transparent  else colorBorder,
                             style = stroke,
                             cornerRadius = CornerRadius(5.dp.toPx())
                         )
 
                     }
                     .border(
-                        2.dp,
-                        if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.background,
+                        1.dp,
+                        if (!isError && textValue.isNotEmpty()) MaterialTheme.extendedColors.green else if (isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.background,
                         shape = RoundedCornerShape(5.sdp)
                     )
                     .clip(RoundedCornerShape(5.sdp)),
@@ -153,27 +154,21 @@ fun InputText(
             )
         }
     }
-    Row(
-        Modifier
-            .fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Start,
-    ) {
-        if (textError != null) {
-            textError.forEach {
-                AlertText(
-                    textMessage = it,
-                    modifier = Modifier.padding(top = 6.sdp, bottom = 6.sdp, start = 10.sdp)
-                )
-            }
-        } else if (isPassword && titleText == "Senha") {
-            Text(
-                "*Mínimo de 8 caracteres, com 1 símbolo especial, 1 letra maiúscula, 1 letra minúscula e um numeral",
-                color = MaterialTheme.colorScheme.outline,
-                modifier = Modifier.padding(5.sdp),
-                fontSize = 10.ssp
+    if (textError != null) {
+        textError.forEach {
+            AlertText(
+                textMessage = it,
+                modifier = Modifier.padding(top = 6.sdp, bottom = 6.sdp, start = 10.sdp)
             )
         }
+    } else if (isPassword && titleText == "Senha") {
+        Text(
+            "*Mínimo de 8 caracteres, com 1 símbolo especial, 1 letra maiúscula, 1 letra minúscula e um numeral",
+            color = MaterialTheme.colorScheme.outline,
+            modifier = Modifier.padding(5.sdp),
+            fontSize = 10.ssp
+        )
+
     }
 
 }

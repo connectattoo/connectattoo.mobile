@@ -36,6 +36,9 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
             implementation(libs.kotlinx.coroutines.android)
 
+            implementation(libs.koin.android)
+            implementation(libs.koin.androidx.compose)
+
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -60,7 +63,13 @@ kotlin {
             implementation(libs.navigation.compose)
 
             //sdp - ssp
-            implementation("network.chaintech:sdp-ssp-compose-multiplatform:1.0.4")
+            implementation(libs.sdp.ssp.compose.multiplatform)
+
+            //Koin
+            api(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+            implementation(libs.lifecycle.viewmodel)
 
         }
         iosMain.dependencies {
