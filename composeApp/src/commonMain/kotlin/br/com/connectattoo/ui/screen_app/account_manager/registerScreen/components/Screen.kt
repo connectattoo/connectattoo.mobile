@@ -25,12 +25,14 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.navigation.NavController
+import br.com.connectattoo.states.TaskState
 import br.com.connectattoo.ui.components.ButtonBackgroundPurple
 import br.com.connectattoo.ui.components.ButtonLigth
 import br.com.connectattoo.ui.components.DateInputText
 import br.com.connectattoo.ui.components.ImageLogo
 import br.com.connectattoo.ui.components.InputText
 import br.com.connectattoo.ui.components.PasswordAlertText
+import br.com.connectattoo.ui.components.PrivacyPolicyCheckbox
 import br.com.connectattoo.ui.components.mask.formatDate
 import br.com.connectattoo.ui.screen_app.account_manager.registerScreen.RegisterFormEvent
 import br.com.connectattoo.ui.screen_app.account_manager.registerScreen.RegisterViewModel
@@ -186,15 +188,32 @@ fun Screen(navController: NavController, viewModel: RegisterViewModel) {
 
                 }
                 item {
+                    Spacer(modifier = Modifier.padding(top = 4.sdp))
+                    PrivacyPolicyCheckbox(
+                        valueChecked = viewModel.state.privacyPolicy,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .testTag("checkbox"),
+                        onEvent = { it: Boolean ->
+                            viewModel.onEvent(
+                                RegisterFormEvent.PrivacyPolicyChanged(
+                                    it
+                                )
+                            )
+                        }
+                    )
+                }
+                item {
 
                     Spacer(modifier = Modifier.padding(top = 10.sdp))
                     ButtonBackgroundPurple(
-                        submit = { navController.popBackStack() },
+                        submit = { viewModel.onEvent(RegisterFormEvent.Submit) },
                         enableButton = true,
                         modifier = Modifier
                             .fillMaxSize(),
                         text = "Criar Conta",
-                        textColor = Color.White
+                        textColor = Color.White,
+                        isLoading = taskState is TaskState.Loading
                     )
 
                 }

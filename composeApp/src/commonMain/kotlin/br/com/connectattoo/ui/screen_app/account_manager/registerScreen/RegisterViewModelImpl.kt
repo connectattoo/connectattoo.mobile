@@ -132,6 +132,28 @@ class RegisterViewModelImpl(
     }
 
     override fun submitData() {
+        val emailResult = validation.validateEmail(state.email)
+        val name = validation.validateName(state.name)
+        val confirmPasswordResult = validation.validateRepeatedPassword( state.repeatedPassword, state.password)
+        val birthDateResult = validation.validateDate(state.birthDate)
+        val passwordResult = validation.validatePassword(state.password)
+        val hasError = listOf(emailResult, name, confirmPasswordResult, birthDateResult).any { !it.success }
+        val hasErrorPassword = listOf(passwordResult).any { !it.success }
+        if (hasErrorPassword){
+            state = state.copy(
+                passwordError = listOf("Senha não atende as condições")
+            )
+
+        }
+        if (hasError) {
+            state = state.copy(
+                emailError = emailResult.errorMessage,
+                nameError = name.errorMessage,
+                repeatedPasswordError = confirmPasswordResult.errorMessage,
+                birthDateError = birthDateResult.errorMessage
+            )
+            return
+        }
         _taskState.value = TaskState.Loading
         viewModelScope.launch {
             /* val result = signUpUseCase.execute(
@@ -146,7 +168,9 @@ class RegisterViewModelImpl(
                  )
              )
              result.handleResult(::success, ::failed)
-             _taskState.value = TaskState.Idle*/
+
+             */
+             _taskState.value = TaskState.Idle
         }
     }
 }
