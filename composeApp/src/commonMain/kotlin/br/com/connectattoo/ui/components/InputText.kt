@@ -88,7 +88,7 @@ fun InputText(
                             width = 1.dp.toPx(),
                         )
                         drawRoundRect(
-                            color = if (isError) Color.Transparent else if (!isError && textValue.isNotEmpty()) Color.Transparent  else colorBorder,
+                            color = if (isError) Color.Transparent else if (!isError && textValue.isNotEmpty()) Color.Transparent else colorBorder,
                             style = stroke,
                             cornerRadius = CornerRadius(5.dp.toPx())
                         )
@@ -154,13 +154,11 @@ fun InputText(
             )
         }
     }
-    if (textError != null) {
-        textError.forEach {
-            AlertText(
-                textMessage = it,
-                modifier = Modifier.padding(top = 6.sdp, bottom = 6.sdp, start = 10.sdp)
-            )
-        }
+    if (textError != null && isPassword && titleText == "Senha") {
+        AlertText(
+            textMessage = "Senha não atende as condições",
+            modifier = Modifier.padding(top = 2.sdp, bottom = 6.sdp, start = 10.sdp)
+        )
     } else if (isPassword && titleText == "Senha") {
         Text(
             "*Mínimo de 8 caracteres, com 1 símbolo especial, 1 letra maiúscula, 1 letra minúscula e um numeral",
@@ -169,6 +167,13 @@ fun InputText(
             fontSize = 10.ssp
         )
 
+    } else if (textError != null) {
+        textError.forEach {
+            AlertText(
+                textMessage = it,
+                modifier = Modifier.padding(top = 6.sdp, bottom = 6.sdp, start = 10.sdp)
+            )
+        }
     }
 
 }

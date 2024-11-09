@@ -71,6 +71,9 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.lifecycle.viewmodel)
 
+            //DateTime
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
+
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -106,6 +109,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.annotations)
     implementation(libs.annotations)
     implementation(libs.annotations)
     debugImplementation(compose.uiTooling)

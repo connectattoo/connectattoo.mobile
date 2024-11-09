@@ -31,9 +31,7 @@ class FakeRegisterViewModel : RegisterViewModel() {
 
     override fun change(
         name: String?,
-        lastName: String?,
         email: String?,
-        phone: String?,
         password: String?,
         birthDate: String?,
         repeatedPassword: String?,

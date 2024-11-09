@@ -8,6 +8,7 @@ import br.com.connectattoo.domain.repository.ValidationRepository
 import br.com.connectattoo.states.TaskState
 import br.com.connectattoo.util.ValidationEvent
 import com.soujunior.domain.use_case.util.ValidationResult
+import com.soujunior.domain.use_case.util.ValidationResultPassword
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -33,6 +34,9 @@ class RegisterViewModelImpl(
     private fun hasError(result: ValidationResult): Boolean {
         return listOf(result).any { !it.success }
     }
+    private fun hasErrorPassword(result: ValidationResultPassword): Boolean {
+        return listOf(result).any { !it.success }
+    }
 
     override fun enableButton(): Boolean {
         val nameResult = validation.validateName(state.name)
@@ -42,7 +46,6 @@ class RegisterViewModelImpl(
             validation.validateRepeatedPassword(state.password, state.repeatedPassword)
 
         return state.name.isNotBlank() &&
-                state.lastName.isNotBlank() &&
                 state.email.isNotBlank() &&
                 state.password.isNotBlank() &&
                 state.repeatedPassword.isNotBlank() &&
@@ -55,9 +58,7 @@ class RegisterViewModelImpl(
 
     override fun change(
         name: String?,
-        lastName: String?,
         email: String?,
-        phone: String?,
         password: String?,
         birthDate: String?,
         repeatedPassword: String?,
@@ -85,8 +86,8 @@ class RegisterViewModelImpl(
                     password = state.password
                 )
                 state =
-                    if (hasError(passwordResult)) state.copy(passwordError = passwordResult.errorMessage)
-                    else state.copy(passwordError = null)
+                    if (hasErrorPassword(passwordResult)) state.copy(passwordErrorMessages = passwordResult.errorMessage, passwordError = listOf("Senha não atende as condições"))
+                    else state.copy(passwordErrorMessages = null, passwordError = null)
                 change(repeatedPassword = state.repeatedPassword)
             }
 
@@ -101,6 +102,12 @@ class RegisterViewModelImpl(
                     else state.copy(repeatedPasswordError = null)
             }
 
+            birthDate != null -> {
+                state = state.copy(birthDate = birthDate)
+                val birthDateResult = validation.validateDate(state.birthDate)
+                state = if (hasError(birthDateResult)) state.copy(birthDateError = birthDateResult.errorMessage)
+                else state.copy(birthDateError = null)
+            }
             privacy != null -> {
                 state = state.copy(privacyPolicy = privacy)
                 val privacyPolicyResult =

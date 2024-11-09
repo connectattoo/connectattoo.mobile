@@ -1,5 +1,6 @@
 package br.com.connectattoo.ui.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,7 +13,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -69,6 +69,7 @@ fun DateInputText(
                     modifier = textInputModifier
                         .padding(5.sdp)
                         .height(40.sdp)
+                        .background(Color.White)
                         .onFocusChanged {
                             inFocus = if (it.hasFocus)
                                 it.hasFocus
@@ -108,23 +109,16 @@ fun DateInputText(
                     visualTransformation = visualTransformation,
                     keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Number
-                    ),
-                    /*colors = TextFieldDefaults.colors(
-
-                        backgroundColor = Color.Transparent,
-                        focusedIndicatorColor = Color.Transparent,
-                        unfocusedIndicatorColor = Color.Transparent,
-                        cursorColor = MaterialTheme.colorScheme.primary
-                    )*/
+                    )
                 )
 
 
             }
 
         }
-        Row {
+        Row(modifier = Modifier.fillMaxWidth()) {
             textError?.forEach {
-                AlertText(textMessage = it, modifier = Modifier.padding(10.sdp))
+                AlertText(textMessage = it, modifier = Modifier.padding(2.sdp))
             }
         }
     }

@@ -9,9 +9,12 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -19,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.navigation.NavController
 import br.com.connectattoo.ui.components.ButtonBackgroundPurple
@@ -26,18 +30,22 @@ import br.com.connectattoo.ui.components.ButtonLigth
 import br.com.connectattoo.ui.components.DateInputText
 import br.com.connectattoo.ui.components.ImageLogo
 import br.com.connectattoo.ui.components.InputText
+import br.com.connectattoo.ui.components.PasswordAlertText
 import br.com.connectattoo.ui.components.mask.formatDate
 import br.com.connectattoo.ui.screen_app.account_manager.registerScreen.RegisterFormEvent
 import br.com.connectattoo.ui.screen_app.account_manager.registerScreen.RegisterViewModel
+import br.com.connectattoo.ui.theme.extendedColors
 import network.chaintech.sdpcomposemultiplatform.sdp
+import network.chaintech.sdpcomposemultiplatform.ssp
 
 @Composable
 fun Screen(navController: NavController, viewModel: RegisterViewModel) {
-     val taskState by viewModel.taskState.collectAsState()
+    val taskState by viewModel.taskState.collectAsState()
     val isDarkMode = isSystemInDarkTheme()
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .statusBarsPadding()
     ) {
 
         Column(
@@ -113,6 +121,31 @@ fun Screen(navController: NavController, viewModel: RegisterViewModel) {
 
                 }
                 item {
+                    if (!viewModel.state.passwordErrorMessages.isNullOrEmpty()) {
+                        Text(
+                            modifier = Modifier.padding(start = 6.sdp),
+                            text = "Condições de Senha",
+                            fontSize = 10.ssp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        viewModel.state.passwordErrorMessages?.forEach { validationMessage ->
+                            val textColor = when {
+                                validationMessage.isValid -> MaterialTheme.extendedColors.green
+                                else -> MaterialTheme.colorScheme.error
+                            }
+                            PasswordAlertText(
+                                textMessage = validationMessage.message,
+                                modifier = Modifier.padding(
+                                    top = 6.sdp,
+                                    bottom = 6.sdp,
+                                    start = 10.sdp
+                                ),
+                                textColor = textColor
+                            )
+                        }
+                    }
+                }
+                item {
                     InputText(
                         titleText = "Confirmar Senha",
                         placeholderText = "",
@@ -141,6 +174,7 @@ fun Screen(navController: NavController, viewModel: RegisterViewModel) {
                         textError = viewModel.state.birthDateError,
                         isError = !viewModel.state.birthDateError.isNullOrEmpty(),
                         modifier = Modifier
+                            .fillMaxWidth()
                             .fillMaxHeight()
                             .width(150.sdp)
                             .padding(top = 10.sdp),

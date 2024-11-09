@@ -3,7 +3,7 @@ package br.com.connectattoo.di
 import br.com.connectattoo.domain.repository.ValidationRepository
 import br.com.connectattoo.ui.screen_app.account_manager.registerScreen.RegisterViewModel
 import br.com.connectattoo.ui.screen_app.account_manager.registerScreen.RegisterViewModelImpl
-import com.soujunior.domain.use_case.util.ValidationRepositoryImpl
+import br.com.connectattoo.domain.util.ValidationRepositoryImpl
 import org.koin.compose.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration
