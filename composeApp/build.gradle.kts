@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.kotlinxSerealization)
 }
 
 kotlin {
@@ -54,6 +55,10 @@ kotlin {
 
             //ktor
             implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.json)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.client.logging)
+            implementation(libs.ktor.serialization.kotlinx.json)
 
             //Coroutines
             implementation(libs.ktor.client.core)
@@ -72,7 +77,7 @@ kotlin {
             implementation(libs.lifecycle.viewmodel)
 
             //DateTime
-            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
+            implementation(libs.kotlinx.datetime)
 
         }
         iosMain.dependencies {

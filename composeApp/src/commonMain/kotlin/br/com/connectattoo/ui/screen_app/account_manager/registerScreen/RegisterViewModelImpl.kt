@@ -4,7 +4,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
+import br.com.connectattoo.domain.model.ClientData
+import br.com.connectattoo.domain.model.TokenData
 import br.com.connectattoo.domain.repository.ValidationRepository
+import br.com.connectattoo.domain.use_cases.RegisterClientUseCase
 import br.com.connectattoo.states.TaskState
 import br.com.connectattoo.util.ValidationEvent
 import com.soujunior.domain.use_case.util.ValidationResult
@@ -16,13 +19,24 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class RegisterViewModelImpl(
-    // private val signUpUseCase: SignUpUseCase,
+    private val registerClientUseCase: RegisterClientUseCase,
     private val validation: ValidationRepository
 ) : RegisterViewModel() {
 
     override var state by mutableStateOf(RegisterFormState())
     override val validationEventChannel = Channel<ValidationEvent>()
     override val validationEvents = validationEventChannel.receiveAsFlow()
+    override fun success(resultPostRegister: TokenData) {
+        state = state.copy(clientTokenData = resultPostRegister)
+        viewModelScope.launch {
+            validationEventChannel.send(ValidationEvent.Success)
+        }
+    }
+
+    override fun failed(exception: Throwable?) {
+        setMessage.value = exception?.message ?: "Unknown Error"
+        viewModelScope.launch { validationEventChannel.send(ValidationEvent.Failed) }
+    }
 
     override val message: StateFlow<String> get() = setMessage
     private val setMessage = MutableStateFlow("")
@@ -34,6 +48,7 @@ class RegisterViewModelImpl(
     private fun hasError(result: ValidationResult): Boolean {
         return listOf(result).any { !it.success }
     }
+
     private fun hasErrorPassword(result: ValidationResultPassword): Boolean {
         return listOf(result).any { !it.success }
     }
@@ -86,7 +101,10 @@ class RegisterViewModelImpl(
                     password = state.password
                 )
                 state =
-                    if (hasErrorPassword(passwordResult)) state.copy(passwordErrorMessages = passwordResult.errorMessage, passwordError = listOf("Senha não atende as condições"))
+                    if (hasErrorPassword(passwordResult)) state.copy(
+                        passwordErrorMessages = passwordResult.errorMessage,
+                        passwordError = listOf("Senha não atende as condições")
+                    )
                     else state.copy(passwordErrorMessages = null, passwordError = null)
                 change(repeatedPassword = state.repeatedPassword)
             }
@@ -105,9 +123,11 @@ class RegisterViewModelImpl(
             birthDate != null -> {
                 state = state.copy(birthDate = birthDate)
                 val birthDateResult = validation.validateDate(state.birthDate)
-                state = if (hasError(birthDateResult)) state.copy(birthDateError = birthDateResult.errorMessage)
-                else state.copy(birthDateError = null)
+                state =
+                    if (hasError(birthDateResult)) state.copy(birthDateError = birthDateResult.errorMessage)
+                    else state.copy(birthDateError = null)
             }
+
             privacy != null -> {
                 state = state.copy(privacyPolicy = privacy)
                 val privacyPolicyResult =
@@ -134,12 +154,14 @@ class RegisterViewModelImpl(
     override fun submitData() {
         val emailResult = validation.validateEmail(state.email)
         val name = validation.validateName(state.name)
-        val confirmPasswordResult = validation.validateRepeatedPassword( state.repeatedPassword, state.password)
+        val confirmPasswordResult =
+            validation.validateRepeatedPassword(state.repeatedPassword, state.password)
         val birthDateResult = validation.validateDate(state.birthDate)
         val passwordResult = validation.validatePassword(state.password)
-        val hasError = listOf(emailResult, name, confirmPasswordResult, birthDateResult).any { !it.success }
+        val hasError =
+            listOf(emailResult, name, confirmPasswordResult, birthDateResult).any { !it.success }
         val hasErrorPassword = listOf(passwordResult).any { !it.success }
-        if (hasErrorPassword){
+        if (hasErrorPassword) {
             state = state.copy(
                 passwordError = listOf("Senha não atende as condições")
             )
@@ -156,21 +178,18 @@ class RegisterViewModelImpl(
         }
         _taskState.value = TaskState.Loading
         viewModelScope.launch {
-            /* val result = signUpUseCase.execute(
-                 SignUpModel(
-                     firstName = state.name.replace(" ", ""),
-                     lastName = state.lastName.replace(" ", ""),
-                     email = state.email.replace(" ", ""),
-                     phone = state.phone.replace(" ", ""),
-                     password = state.password.replace(" ", ""),
-                     passwordConfirmation = state.password.replace(" ", ""),
-                     isPrivacyPolicyAccepted = state.privacyPolicy
-                 )
-             )
-             result.handleResult(::success, ::failed)
+            val result = registerClientUseCase.execute(
+                ClientData(
+                    name = state.name.replace(" ", ""),
+                    email = state.email.replace(" ", ""),
+                    password = state.password.replace(" ", ""),
+                    birthDate = state.birthDate.replace(" ", ""),
+                    termsAccepted = state.privacyPolicy
+                )
+            )
+            result.handleResult(::success, ::failed)
 
-             */
-             _taskState.value = TaskState.Idle
+            _taskState.value = TaskState.Idle
         }
     }
 }

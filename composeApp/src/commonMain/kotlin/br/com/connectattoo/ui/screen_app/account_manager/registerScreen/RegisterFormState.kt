@@ -1,5 +1,6 @@
 package br.com.connectattoo.ui.screen_app.account_manager.registerScreen
 
+import br.com.connectattoo.domain.model.TokenData
 import br.com.connectattoo.domain.util.ValidationMessagePassword
 
 
@@ -16,5 +17,5 @@ data class RegisterFormState(
     val birthDate: String = "",
     val birthDateError: List<String>? = null,
     val privacyPolicy: Boolean = false,
-    // val userProfile: User? = null
+     val clientTokenData: TokenData = TokenData("")
 )
