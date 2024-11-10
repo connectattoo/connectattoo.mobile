@@ -5,6 +5,8 @@ import br.com.connectattoo.domain.repository.AuthRepository
 import br.com.connectattoo.domain.repository.ValidationRepository
 import br.com.connectattoo.domain.use_cases.RegisterClientUseCase
 import br.com.connectattoo.domain.util.ValidationRepositoryImpl
+import br.com.connectattoo.ui.screen_app.account_manager.accountConfirmation.AccountConfirmationViewModel
+import br.com.connectattoo.ui.screen_app.account_manager.accountConfirmation.AccountConfirmationViewModelImpl
 import br.com.connectattoo.ui.screen_app.account_manager.registerScreen.RegisterViewModel
 import br.com.connectattoo.ui.screen_app.account_manager.registerScreen.RegisterViewModelImpl
 import io.ktor.client.HttpClient
@@ -24,6 +26,7 @@ val appModule = module {
 
     //viewModels
     viewModel<RegisterViewModel> { RegisterViewModelImpl(get(),get()) }
+    viewModel<AccountConfirmationViewModel> { AccountConfirmationViewModelImpl(get(), get()) }
 
     //repository
     single<ValidationRepository> { ValidationRepositoryImpl() }

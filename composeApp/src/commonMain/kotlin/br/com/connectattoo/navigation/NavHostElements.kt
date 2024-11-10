@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import br.com.connectattoo.ui.screen_app.account_manager.accountConfirmation.AccountConfirmationScreen
 import br.com.connectattoo.ui.screen_app.account_manager.loginScreen.LoginScreen
 import br.com.connectattoo.ui.screen_app.screens_apresentation.splashScreen.SplashScreen
 import br.com.connectattoo.ui.screen_app.screens_apresentation.welcomepage.WelcomePage
@@ -22,9 +23,10 @@ fun Presentation() {
 @Composable
 fun NavHostAccountManager() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "register") {
+    NavHost(navController = navController, startDestination = "account_confirmation") {
         composable("login") { LoginScreen(navController) }
         composable("register") { RegisterScreen(navController) }
+        composable("account_confirmation") { AccountConfirmationScreen(navController) }
 
     }
 }

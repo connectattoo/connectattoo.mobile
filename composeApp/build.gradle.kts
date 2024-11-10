@@ -40,6 +40,7 @@ kotlin {
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
 
+
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -78,6 +79,7 @@ kotlin {
 
             //DateTime
             implementation(libs.kotlinx.datetime)
+
 
         }
         iosMain.dependencies {

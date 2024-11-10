@@ -4,6 +4,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -41,13 +42,18 @@ import network.chaintech.sdpcomposemultiplatform.sdp
 import network.chaintech.sdpcomposemultiplatform.ssp
 
 @Composable
-fun Screen(navController: NavController, viewModel: RegisterViewModel) {
+fun Screen(
+    navController: NavController,
+    viewModel: RegisterViewModel,
+    paddingValues: PaddingValues
+) {
     val taskState by viewModel.taskState.collectAsState()
     val isDarkMode = isSystemInDarkTheme()
     Box(
         modifier = Modifier
             .fillMaxSize()
             .statusBarsPadding()
+            .padding(paddingValues)
     ) {
 
         Column(
