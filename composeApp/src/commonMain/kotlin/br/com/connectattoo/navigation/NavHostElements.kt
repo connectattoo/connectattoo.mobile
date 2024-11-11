@@ -9,6 +9,7 @@ import br.com.connectattoo.ui.screen_app.account_manager.loginScreen.LoginScreen
 import br.com.connectattoo.ui.screen_app.screens_apresentation.splashScreen.SplashScreen
 import br.com.connectattoo.ui.screen_app.screens_apresentation.welcomepage.WelcomePage
 import br.com.connectattoo.ui.screen_app.account_manager.registerScreen.RegisterScreen
+import br.com.connectattoo.ui.screen_app.account_manager.registerScreenTattooArtist.RegisterTattooArtistScreen
 
 
 @Composable
@@ -23,9 +24,10 @@ fun Presentation() {
 @Composable
 fun NavHostAccountManager() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "account_confirmation") {
+    NavHost(navController = navController, startDestination = "registerTattooArtist") {
         composable("login") { LoginScreen(navController) }
         composable("register") { RegisterScreen(navController) }
+        composable("registerTattooArtist") { RegisterTattooArtistScreen(navController) }
         composable("account_confirmation") { AccountConfirmationScreen(navController) }
 
     }

@@ -1,10 +1,11 @@
-package br.com.connectattoo.ui.screen_app.account_manager.registerScreen.components
+package br.com.connectattoo.ui.screen_app.account_manager.registerScreenTattooArtist.components
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.connectattoo.states.TaskState
 import br.com.connectattoo.ui.components.ButtonBackgroundPurple
@@ -35,8 +37,8 @@ import br.com.connectattoo.ui.components.InputText
 import br.com.connectattoo.ui.components.PasswordAlertText
 import br.com.connectattoo.ui.components.PrivacyPolicyCheckbox
 import br.com.connectattoo.ui.components.mask.formatDate
-import br.com.connectattoo.ui.screen_app.account_manager.registerScreen.RegisterFormEvent
-import br.com.connectattoo.ui.screen_app.account_manager.registerScreen.RegisterViewModel
+import br.com.connectattoo.ui.screen_app.account_manager.registerScreenTattooArtist.RegisterTattooArtistFormEvent
+import br.com.connectattoo.ui.screen_app.account_manager.registerScreenTattooArtist.RegisterTattooArtistViewModel
 import br.com.connectattoo.ui.theme.extendedColors
 import network.chaintech.sdpcomposemultiplatform.sdp
 import network.chaintech.sdpcomposemultiplatform.ssp
@@ -44,7 +46,7 @@ import network.chaintech.sdpcomposemultiplatform.ssp
 @Composable
 fun Screen(
     navController: NavController,
-    viewModel: RegisterViewModel,
+    viewModel: RegisterTattooArtistViewModel,
     paddingValues: PaddingValues
 ) {
     val taskState by viewModel.taskState.collectAsState()
@@ -83,7 +85,7 @@ fun Screen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .testTag("input_name"),
-                        onEvent = { it: String -> viewModel.onEvent(RegisterFormEvent.NameChanged(it)) }
+                        onEvent = { it: String -> viewModel.onEvent(RegisterTattooArtistFormEvent.NameChanged(it)) }
                     )
                 }
                 item {
@@ -99,7 +101,7 @@ fun Screen(
                             .testTag("input_email"),
                         onEvent = { it: String ->
                             viewModel.onEvent(
-                                RegisterFormEvent.EmailChanged(
+                                RegisterTattooArtistFormEvent.EmailChanged(
                                     it
                                 )
                             )
@@ -120,7 +122,7 @@ fun Screen(
                         isPassword = true,
                         onEvent = { it: String ->
                             viewModel.onEvent(
-                                RegisterFormEvent.PasswordChanged(
+                                RegisterTattooArtistFormEvent.PasswordChanged(
                                     it
                                 )
                             )
@@ -166,7 +168,7 @@ fun Screen(
                         isPassword = true,
                         onEvent = { it: String ->
                             viewModel.onEvent(
-                                RegisterFormEvent.ConfirmPasswordChanged(
+                                RegisterTattooArtistFormEvent.ConfirmPasswordChanged(
                                     it
                                 )
                             )
@@ -174,6 +176,78 @@ fun Screen(
                     )
 
                 }
+                item {
+                    InputText(
+                        titleText = "CEP",
+                        placeholderText = "ex. João Silva",
+                        textValue = viewModel.state.zipCode,
+                        textError = viewModel.state.zipCodeError,
+                        isError = !viewModel.state.zipCodeError.isNullOrEmpty(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .testTag("input_name"),
+                        onEvent = { it: String -> viewModel.onEvent(RegisterTattooArtistFormEvent.ZipCodeChanged(it)) }
+                    )
+                }
+                item {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .align(Alignment.CenterHorizontally),
+                        horizontalArrangement = Arrangement.spacedBy(0.2.dp)
+                    ) {
+                        InputText(
+                            titleText = "Rua",
+                            placeholderText = "Santa Catarina",
+                            textValue = viewModel.state.street,
+                            textError = viewModel.state.streetError,
+                            isError = !viewModel.state.streetError.isNullOrEmpty(),
+                            modifier = Modifier
+                                .weight(1f)
+                                .testTag("input_rua"),
+                            onEvent = { it: String -> viewModel.onEvent(RegisterTattooArtistFormEvent.StreetChanged(it)) }
+                        )
+
+                        InputText(
+                            titleText = "Número",
+                            placeholderText = "3223",
+                            textValue = viewModel.state.number,
+                            textError = viewModel.state.numberError,
+                            isError = !viewModel.state.numberError.isNullOrEmpty(),
+                            modifier = Modifier
+                                .weight(1f)
+                                .testTag("input_numero"),
+                            onEvent = { it: String -> viewModel.onEvent(RegisterTattooArtistFormEvent.NumberChanged(it)) }
+                        )
+                    }
+                }
+                item {
+                    InputText(
+                        titleText = "Cidade",
+                        placeholderText = "São Paulo",
+                        textValue = viewModel.state.city,
+                        textError = viewModel.state.cityError,
+                        isError = !viewModel.state.cityError.isNullOrEmpty(),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .testTag("input_cidade"),
+                        onEvent = { it: String -> viewModel.onEvent(RegisterTattooArtistFormEvent.CityChanged(it)) }
+                    )
+                }
+                item {
+                    InputText(
+                        titleText = "Estado",
+                        placeholderText = "São Paulo",
+                        textValue = viewModel.state.stateAddress,
+                        textError = viewModel.state.stateAddressError,
+                        isError = !viewModel.state.stateAddressError.isNullOrEmpty(),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .testTag("input_estado"),
+                        onEvent = { it: String -> viewModel.onEvent(RegisterTattooArtistFormEvent.StateChanged(it)) }
+                    )
+                }
+
                 item {
                     DateInputText(
                         titleText = "Data de Nascimento",
@@ -185,9 +259,9 @@ fun Screen(
                             .fillMaxWidth()
                             .fillMaxHeight()
                             .width(150.sdp)
-                            .padding(top = 10.sdp),
+                            .padding(top = 5.sdp),
                         onEvent = { value: String ->
-                            viewModel.onEvent(RegisterFormEvent.BirthDateChanged(value))
+                            viewModel.onEvent(RegisterTattooArtistFormEvent.BirthDateChanged(value))
                         },
                         visualTransformation = { formatDate(it) }
                     )
@@ -202,7 +276,7 @@ fun Screen(
                             .testTag("checkbox"),
                         onEvent = { it: Boolean ->
                             viewModel.onEvent(
-                                RegisterFormEvent.PrivacyPolicyChanged(
+                                RegisterTattooArtistFormEvent.PrivacyPolicyChanged(
                                     it
                                 )
                             )
@@ -213,7 +287,7 @@ fun Screen(
 
                     Spacer(modifier = Modifier.padding(top = 10.sdp))
                     ButtonBackgroundPurple(
-                        submit = { viewModel.onEvent(RegisterFormEvent.Submit) },
+                        submit = { viewModel.onEvent(RegisterTattooArtistFormEvent.Submit) },
                         enableButton = true,
                         modifier = Modifier
                             .fillMaxSize(),

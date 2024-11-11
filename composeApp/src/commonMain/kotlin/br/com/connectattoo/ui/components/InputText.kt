@@ -72,7 +72,7 @@ fun InputText(
                 fontSize = 12.ssp,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 10.sdp, bottom = 5.sdp, top = 15.sdp)
+                    .padding(start = 10.sdp, bottom = 5.sdp, top = 5.sdp)
             )
         }
 
@@ -104,7 +104,7 @@ fun InputText(
                 onValueChange = { text -> onEvent(text) },
                 singleLine = true,
                 textStyle = TextStyle(
-                    fontSize = 15.ssp,
+                    fontSize = 12.ssp,
                     color = if (isSystemInDarkTheme()) Color.Black else MaterialTheme.colorScheme.onSurface
                 ),
                 maxLines = 1,
@@ -118,7 +118,7 @@ fun InputText(
                     Row(
                         modifier = Modifier
                             .background(Color.White)
-                            .padding(start = 14.sdp),
+                            .padding(start = 12.sdp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Box(
@@ -130,7 +130,7 @@ fun InputText(
                                     text = placeholderText,
                                     style = MaterialTheme.typography.bodyLarge,
                                     color = MaterialTheme.colorScheme.outline,
-                                    fontSize = 15.ssp
+                                    fontSize = 12.ssp
                                 )
                             }
                             it()
