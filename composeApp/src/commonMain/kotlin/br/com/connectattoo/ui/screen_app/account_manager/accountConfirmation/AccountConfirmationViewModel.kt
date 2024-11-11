@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 
 abstract class AccountConfirmationViewModel : ViewModel() {
+    abstract fun getToken()
    /* abstract var state: RegisterFormState
     abstract val validationEventChannel: Channel<ValidationEvent>
     abstract val message: StateFlow<String>

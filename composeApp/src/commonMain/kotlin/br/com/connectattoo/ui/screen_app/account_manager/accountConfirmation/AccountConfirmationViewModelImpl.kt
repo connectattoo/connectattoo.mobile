@@ -2,12 +2,25 @@ package br.com.connectattoo.ui.screen_app.account_manager.accountConfirmation
 
 import br.com.connectattoo.domain.repository.ValidationRepository
 import br.com.connectattoo.domain.use_cases.RegisterClientUseCase
+import br.com.connectattoo.util.PreferencesHelper
 
 class AccountConfirmationViewModelImpl(
-    private val registerClientUseCase: RegisterClientUseCase,
-    private val validation: ValidationRepository
+    private val preferencesHelper: PreferencesHelper
+
 ) : AccountConfirmationViewModel() {
 
+    init {
+        saveToken()
+
+    }
+    fun saveToken(){
+        preferencesHelper.saveToken("123")
+    }
+    override fun getToken(){
+        val token = preferencesHelper.getToken()
+        println(token)
+
+    }
     /*override var state by mutableStateOf(RegisterFormState())
     override val validationEventChannel = Channel<ValidationEvent>()
     override val validationEvents = validationEventChannel.receiveAsFlow()

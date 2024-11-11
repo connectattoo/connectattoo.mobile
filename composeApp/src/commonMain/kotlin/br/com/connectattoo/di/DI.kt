@@ -9,6 +9,8 @@ import br.com.connectattoo.ui.screen_app.account_manager.accountConfirmation.Acc
 import br.com.connectattoo.ui.screen_app.account_manager.accountConfirmation.AccountConfirmationViewModelImpl
 import br.com.connectattoo.ui.screen_app.account_manager.registerScreen.RegisterViewModel
 import br.com.connectattoo.ui.screen_app.account_manager.registerScreen.RegisterViewModelImpl
+import br.com.connectattoo.util.PreferencesHelper
+import com.russhwolf.settings.Settings
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
@@ -26,7 +28,7 @@ val appModule = module {
 
     //viewModels
     viewModel<RegisterViewModel> { RegisterViewModelImpl(get(),get()) }
-    viewModel<AccountConfirmationViewModel> { AccountConfirmationViewModelImpl(get(), get()) }
+    viewModel<AccountConfirmationViewModel> { AccountConfirmationViewModelImpl(get()) }
 
     //repository
     single<ValidationRepository> { ValidationRepositoryImpl() }
@@ -43,6 +45,12 @@ val appModule = module {
             }
         }
     }
+
+
+    //Save data, multiplatform-settings
+    single { Settings() }
+
+    single { PreferencesHelper(settings = get()) }
 
 }
 

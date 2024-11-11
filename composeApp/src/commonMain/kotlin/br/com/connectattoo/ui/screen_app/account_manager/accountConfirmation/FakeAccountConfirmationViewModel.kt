@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 
 class FakeAccountConfirmationViewModel : AccountConfirmationViewModel() {
-   /* abstract var state: RegisterFormState
+    /* abstract var state: RegisterFormState
     abstract val validationEventChannel: Channel<ValidationEvent>
     abstract val message: StateFlow<String>
     abstract val taskState: StateFlow<TaskState>
@@ -33,4 +33,7 @@ class FakeAccountConfirmationViewModel : AccountConfirmationViewModel() {
         repeatedPassword: String? = null,
         privacy: Boolean? = null
     )*/
+    override fun getToken() {
+        TODO("Not yet implemented")
+    }
 }
