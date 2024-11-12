@@ -5,6 +5,7 @@ import br.com.connectattoo.domain.model.ArtistData
 import br.com.connectattoo.domain.model.ClientData
 import br.com.connectattoo.domain.model.TokenData
 import br.com.connectattoo.domain.repository.AuthRepository
+import br.com.connectattoo.util.PreferencesHelper
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.post
@@ -14,7 +15,8 @@ import io.ktor.http.contentType
 
 class AuthRepositoryImpl(
     private val client: HttpClient,
-    private val baseURL: String
+    private val baseURL: String,
+    private val preferencesHelper: PreferencesHelper
 ) : AuthRepository {
 
     override suspend fun registerClient(clientData: ClientData): DataResult<TokenData> {
@@ -23,7 +25,9 @@ class AuthRepositoryImpl(
                 contentType(ContentType.Application.Json)
                 setBody(clientData)
             }.body()
-
+            if (response.accessToken.isNotEmpty()) {
+                preferencesHelper.saveToken(response.accessToken)
+            }
             DataResult.Success(response)
         } catch (e: Exception) {
             println(e.message)
@@ -37,6 +41,9 @@ class AuthRepositoryImpl(
                 contentType(ContentType.Application.Json)
                 setBody(artistData)
             }.body()
+            if (response.accessToken.isNotEmpty()) {
+                preferencesHelper.saveToken(response.accessToken)
+            }
 
             DataResult.Success(response)
         } catch (e: Exception) {
