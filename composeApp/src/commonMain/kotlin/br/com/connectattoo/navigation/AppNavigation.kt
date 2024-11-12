@@ -10,7 +10,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 fun App() {
     ConnectattooTheme {
         Scaffold {
-            PresentationManager()
+            MainContent()
         }
     }
 }
@@ -29,6 +29,14 @@ fun PresentationManager() {
     ConnectattooTheme(
         content = {
             Presentation()
+        }
+    )
+}
+@Composable
+fun MainContent() {
+    ConnectattooTheme(
+        content = {
+            NavHostMainContent()
         }
     )
 }

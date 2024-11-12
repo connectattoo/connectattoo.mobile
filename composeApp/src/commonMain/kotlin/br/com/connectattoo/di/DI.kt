@@ -37,7 +37,7 @@ val appModule = module {
 
     //repository
     single<ValidationRepository> { ValidationRepositoryImpl() }
-    single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
+    single<AuthRepository> { AuthRepositoryImpl(get(), get(), get()) }
 
     single { "https://connectattoo-api.duckdns.org/api/v1" }
     single {
