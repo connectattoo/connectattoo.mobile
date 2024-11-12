@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import br.com.connectattoo.domain.model.ClientData
 import br.com.connectattoo.domain.model.TokenData
 import br.com.connectattoo.domain.repository.ValidationRepository
-import br.com.connectattoo.domain.use_cases.RegisterClientUseCase
+import br.com.connectattoo.domain.use_cases.auth.RegisterClientUseCase
 import br.com.connectattoo.states.TaskState
 import br.com.connectattoo.util.ValidationEvent
 import com.soujunior.domain.use_case.util.ValidationResult

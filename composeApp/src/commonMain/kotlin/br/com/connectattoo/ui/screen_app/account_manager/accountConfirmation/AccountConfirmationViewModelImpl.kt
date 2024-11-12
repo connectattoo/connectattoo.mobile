@@ -1,7 +1,5 @@
 package br.com.connectattoo.ui.screen_app.account_manager.accountConfirmation
 
-import br.com.connectattoo.domain.repository.ValidationRepository
-import br.com.connectattoo.domain.use_cases.RegisterClientUseCase
 import br.com.connectattoo.util.PreferencesHelper
 
 class AccountConfirmationViewModelImpl(

@@ -72,11 +72,11 @@ fun InputText(
                 fontSize = 12.ssp,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 10.sdp, bottom = 5.sdp, top = 5.sdp)
+                    .padding(start = 10.sdp, top = 5.sdp)
             )
         }
 
-        Row {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             BasicTextField(
                 modifier = textInputModifier
                     .fillMaxWidth()
@@ -117,8 +117,7 @@ fun InputText(
                 decorationBox = {
                     Row(
                         modifier = Modifier
-                            .background(Color.White)
-                            .padding(start = 12.sdp),
+                            .background(Color.White).padding(start = 14.sdp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Box(

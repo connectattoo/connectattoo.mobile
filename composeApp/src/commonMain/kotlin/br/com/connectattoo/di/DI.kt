@@ -3,7 +3,8 @@ package br.com.connectattoo.di
 import br.com.connectattoo.data.repository.AuthRepositoryImpl
 import br.com.connectattoo.domain.repository.AuthRepository
 import br.com.connectattoo.domain.repository.ValidationRepository
-import br.com.connectattoo.domain.use_cases.RegisterClientUseCase
+import br.com.connectattoo.domain.use_cases.auth.RegisterClientUseCase
+import br.com.connectattoo.domain.use_cases.auth.RegisterTattooArtistUseCase
 import br.com.connectattoo.domain.util.ValidationRepositoryImpl
 import br.com.connectattoo.ui.screen_app.account_manager.accountConfirmation.AccountConfirmationViewModel
 import br.com.connectattoo.ui.screen_app.account_manager.accountConfirmation.AccountConfirmationViewModelImpl
@@ -27,6 +28,7 @@ import org.koin.dsl.module
 val appModule = module {
     //UseCases
     factory { RegisterClientUseCase(get()) }
+    factory { RegisterTattooArtistUseCase(get()) }
 
     //viewModels
     viewModel<RegisterViewModel> { RegisterViewModelImpl(get(),get()) }

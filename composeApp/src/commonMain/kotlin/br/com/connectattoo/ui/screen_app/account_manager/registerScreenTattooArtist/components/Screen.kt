@@ -85,7 +85,13 @@ fun Screen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .testTag("input_name"),
-                        onEvent = { it: String -> viewModel.onEvent(RegisterTattooArtistFormEvent.NameChanged(it)) }
+                        onEvent = { it: String ->
+                            viewModel.onEvent(
+                                RegisterTattooArtistFormEvent.NameChanged(
+                                    it
+                                )
+                            )
+                        }
                     )
                 }
                 item {
@@ -179,14 +185,21 @@ fun Screen(
                 item {
                     InputText(
                         titleText = "CEP",
-                        placeholderText = "ex. João Silva",
+                        placeholderText = "",
                         textValue = viewModel.state.zipCode,
                         textError = viewModel.state.zipCodeError,
                         isError = !viewModel.state.zipCodeError.isNullOrEmpty(),
+                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .testTag("input_name"),
-                        onEvent = { it: String -> viewModel.onEvent(RegisterTattooArtistFormEvent.ZipCodeChanged(it)) }
+                            .testTag("input_cep"),
+                        onEvent = { it: String ->
+                            viewModel.onEvent(
+                                RegisterTattooArtistFormEvent.ZipCodeChanged(
+                                    it
+                                )
+                            )
+                        }
                     )
                 }
                 item {
@@ -200,24 +213,31 @@ fun Screen(
                             titleText = "Rua",
                             placeholderText = "Santa Catarina",
                             textValue = viewModel.state.street,
-                            textError = viewModel.state.streetError,
                             isError = !viewModel.state.streetError.isNullOrEmpty(),
                             modifier = Modifier
                                 .weight(1f)
                                 .testTag("input_rua"),
-                            onEvent = { it: String -> viewModel.onEvent(RegisterTattooArtistFormEvent.StreetChanged(it)) }
+                            onEvent = { it: String ->
+                                viewModel.onEvent(
+                                    RegisterTattooArtistFormEvent.StreetChanged(it)
+                                )
+                            }
                         )
 
                         InputText(
                             titleText = "Número",
                             placeholderText = "3223",
                             textValue = viewModel.state.number,
-                            textError = viewModel.state.numberError,
                             isError = !viewModel.state.numberError.isNullOrEmpty(),
+                            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                             modifier = Modifier
                                 .weight(1f)
                                 .testTag("input_numero"),
-                            onEvent = { it: String -> viewModel.onEvent(RegisterTattooArtistFormEvent.NumberChanged(it)) }
+                            onEvent = { it: String ->
+                                viewModel.onEvent(
+                                    RegisterTattooArtistFormEvent.NumberChanged(it)
+                                )
+                            }
                         )
                     }
                 }
@@ -231,7 +251,13 @@ fun Screen(
                         modifier = Modifier
                             .fillMaxSize()
                             .testTag("input_cidade"),
-                        onEvent = { it: String -> viewModel.onEvent(RegisterTattooArtistFormEvent.CityChanged(it)) }
+                        onEvent = { it: String ->
+                            viewModel.onEvent(
+                                RegisterTattooArtistFormEvent.CityChanged(
+                                    it
+                                )
+                            )
+                        }
                     )
                 }
                 item {
@@ -244,7 +270,13 @@ fun Screen(
                         modifier = Modifier
                             .fillMaxSize()
                             .testTag("input_estado"),
-                        onEvent = { it: String -> viewModel.onEvent(RegisterTattooArtistFormEvent.StateChanged(it)) }
+                        onEvent = { it: String ->
+                            viewModel.onEvent(
+                                RegisterTattooArtistFormEvent.StateChanged(
+                                    it
+                                )
+                            )
+                        }
                     )
                 }
 

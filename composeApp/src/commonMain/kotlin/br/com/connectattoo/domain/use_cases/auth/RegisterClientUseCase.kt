@@ -1,4 +1,4 @@
-package br.com.connectattoo.domain.use_cases
+package br.com.connectattoo.domain.use_cases.auth
 
 import br.com.connectattoo.domain.base.BaseUseCase
 import br.com.connectattoo.domain.base.DataResult

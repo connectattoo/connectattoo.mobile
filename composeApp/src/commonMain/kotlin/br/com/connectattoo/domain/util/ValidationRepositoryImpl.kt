@@ -167,6 +167,14 @@ class ValidationRepositoryImpl : ValidationRepository {
         }
     }
 
+    override fun validateField(value: String): ValidationResult {
+        return if (value.isNotEmpty() || value.isNotBlank()) {
+                ValidationResult(success = true, errorMessage = null)
+            } else {
+                ValidationResult(success = false, errorMessage = listOf("Campo de preenchimento obrigatório"))
+            }
+    }
+
     /**
      * isValidLength = will return True if the String field is not Blank, the length of the String
      * is not less than 3 or greater than 30, and if the String field is not empty */
