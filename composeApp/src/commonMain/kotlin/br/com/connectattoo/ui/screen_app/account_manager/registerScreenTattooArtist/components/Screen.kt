@@ -54,7 +54,6 @@ fun Screen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .statusBarsPadding()
             .padding(paddingValues)
     ) {
 

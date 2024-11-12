@@ -1,34 +1,50 @@
 package br.com.connectattoo.ui.screen_app.screen_home.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.connectattoo.ui.components.NavigationBar
 import br.com.connectattoo.ui.components.ScaffoldCustom
+import network.chaintech.sdpcomposemultiplatform.sdp
 
 
 @Composable
 fun Screen(navController: NavController) {
 
 
-    Column(modifier = Modifier.navigationBarsPadding()) {
+    Column {
         ScaffoldCustom(
             modifier = Modifier,
-            //titleTopBar = stringResource(R.string.hello, name.value.capitalizeFirstLetter()),
-            //isLoading = taskState is TaskState.Loading,
-            //titleTopBarColor = MaterialTheme.colorScheme.scrim,
-            //titleTopBarAligh = Alignment.CenterStart,
             showActions = true,
             shadowBelowTopBar = 0.dp,
             showButtonToReturn = false,
+            isLoading = false,
             navigationUp = navController,
             showTopBar = true,
             showBottomBarNavigation = true,
             bottomNavigationBar = { NavigationBar(navController) },
             contentToUse = {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(start = 16.dp, end = 16.dp),
+                    horizontalAlignment = Alignment.Start,
+                    verticalArrangement = Arrangement.Top,
+                    contentPadding = it
+                ) {
+                    item {
+                        Header(name = "Pedro", modifier = Modifier.padding( start = 4.sdp, end = 4.sdp))
+
+                    }
+                }
 
             })
     }

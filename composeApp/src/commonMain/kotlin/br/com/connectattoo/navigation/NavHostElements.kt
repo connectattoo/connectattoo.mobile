@@ -16,7 +16,7 @@ import br.com.connectattoo.ui.screen_app.screen_home.HomeScreen
 @Composable
 fun Presentation() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "register") {
+    NavHost(navController = navController, startDestination = "splash") {
         composable("splash") { SplashScreen(navController) }
         composable("welcomepage") { WelcomePage(navController) }
         composable("register") { RegisterScreen(navController) }

@@ -79,8 +79,7 @@ fun WelcomePage(navController: NavHostController) {
 
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 10.sdp),
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 

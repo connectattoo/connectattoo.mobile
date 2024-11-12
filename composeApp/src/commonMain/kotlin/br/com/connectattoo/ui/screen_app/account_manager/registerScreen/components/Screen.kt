@@ -52,7 +52,6 @@ fun Screen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .statusBarsPadding()
             .padding(paddingValues)
     ) {
 
@@ -65,7 +64,7 @@ fun Screen(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(start = 16.sdp, end = 16.sdp, top = 16.sdp),
+                    .padding(start = 16.sdp, end = 16.sdp,top = 16.sdp),
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Top,
             ) {
