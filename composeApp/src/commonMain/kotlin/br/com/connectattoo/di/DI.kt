@@ -8,6 +8,8 @@ import br.com.connectattoo.domain.use_cases.auth.RegisterTattooArtistUseCase
 import br.com.connectattoo.domain.util.ValidationRepositoryImpl
 import br.com.connectattoo.ui.screen_app.account_manager.accountConfirmation.AccountConfirmationViewModel
 import br.com.connectattoo.ui.screen_app.account_manager.accountConfirmation.AccountConfirmationViewModelImpl
+import br.com.connectattoo.ui.screen_app.account_manager.loginScreen.FakeLoginViewModel
+import br.com.connectattoo.ui.screen_app.account_manager.loginScreen.LoginViewModel
 import br.com.connectattoo.ui.screen_app.account_manager.registerScreen.RegisterViewModel
 import br.com.connectattoo.ui.screen_app.account_manager.registerScreen.RegisterViewModelImpl
 import br.com.connectattoo.ui.screen_app.account_manager.registerScreenTattooArtist.RegisterTattooArtistViewModel
@@ -34,6 +36,7 @@ val appModule = module {
     viewModel<RegisterViewModel> { RegisterViewModelImpl(get(),get()) }
     viewModel<RegisterTattooArtistViewModel> { RegisterTattooArtistViewModelImpl(get(),get()) }
     viewModel<AccountConfirmationViewModel> { AccountConfirmationViewModelImpl(get()) }
+    viewModel<LoginViewModel> { FakeLoginViewModel() }
 
     //repository
     single<ValidationRepository> { ValidationRepositoryImpl() }

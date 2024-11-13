@@ -11,6 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import br.com.connectattoo.domain.model.TagHomeScreen
+import br.com.connectattoo.domain.model.TattoosBasedOnTagsHomeScreen
 import br.com.connectattoo.ui.components.NavigationBar
 import br.com.connectattoo.ui.components.ScaffoldCustom
 import network.chaintech.sdpcomposemultiplatform.sdp
@@ -35,14 +37,27 @@ fun Screen(navController: NavController) {
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(start = 16.dp, end = 16.dp),
+                        .padding(end = 16.dp),
                     horizontalAlignment = Alignment.Start,
                     verticalArrangement = Arrangement.Top,
                     contentPadding = it
                 ) {
                     item {
-                        Header(name = "Pedro", modifier = Modifier.padding( start = 4.sdp, end = 4.sdp))
+                        Header(name = "Pedro", modifier = Modifier.padding( start = 12.sdp, end = 4.sdp))
 
+                    }
+                    item {
+                        val list = listOf(
+                            TattoosBasedOnTagsHomeScreen(id= 1,
+                                imageTattoo = "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Ffirst_carousel%2Ftattoo_tesoura.png",
+                                listTagHomeScreens = listOf(
+                                    TagHomeScreen(id = 1, title = "Old Schol"),  TagHomeScreen(id = 1, title = "PB"), TagHomeScreen(id = 1, title = "Old")
+                                )
+                            )
+                        )
+                        HorizontalListWithCards(list, onAddMoreClicked = {
+
+                        })
                     }
                 }
 
