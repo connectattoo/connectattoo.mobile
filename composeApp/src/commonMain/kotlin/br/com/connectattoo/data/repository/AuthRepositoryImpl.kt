@@ -10,6 +10,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
+import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 
@@ -21,16 +22,23 @@ class AuthRepositoryImpl(
 
     override suspend fun registerClient(clientData: ClientData): DataResult<TokenData> {
         return try {
-            val response: TokenData = client.post("$baseURL/auth/register") {
+            val response = client.post("$baseURL/auth/register") {
                 contentType(ContentType.Application.Json)
                 setBody(clientData)
-            }.body()
-            if (response.accessToken.isNotEmpty()) {
-                preferencesHelper.saveToken(response.accessToken)
             }
-            DataResult.Success(response)
+            val tokenData: TokenData = response.body()
+            if (response.status.value in 200..299) {
+                if (!tokenData.accessToken.isNullOrEmpty()) {
+                    preferencesHelper.saveToken(tokenData.accessToken ?: "")
+                }
+                DataResult.Success(tokenData)
+            } else {
+                DataResult.Failure(Throwable("${response.bodyAsText()} "))
+            }
+
+
         } catch (e: Exception) {
-            println(e.message)
+            println("Erro: ${e.message}")
             DataResult.Failure(e)
         }
     }
@@ -41,7 +49,7 @@ class AuthRepositoryImpl(
                 contentType(ContentType.Application.Json)
                 setBody(artistData)
             }.body()
-            if (response.accessToken.isNotEmpty()) {
+            if (!response.accessToken.isNullOrEmpty()) {
                 preferencesHelper.saveToken(response.accessToken)
             }
 

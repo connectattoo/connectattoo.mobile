@@ -77,6 +77,42 @@ class ValidationRepositoryImpl : ValidationRepository {
         )
     }
 
+    override fun validateLoginPassword(password: String): ValidationResult {
+        val listItens = countCharacters(password)
+        val listErrorMessage: MutableList<String>? = mutableListOf()
+
+        var count = 0
+
+        if (password.isNotBlank()) {
+            if (password.length < 8)
+                listErrorMessage?.add("Comprimento minimo de 8 caracteres") else count++
+
+            if (listItens[0] >= 1)
+                listErrorMessage?.add("Uma letra maiúscula (A-Z)") else count++
+
+            if (listItens[1] >= 1)
+                listErrorMessage?.add("Uma letra minúscula (a-z)") else count++
+
+            if (listItens[2] >= 1)
+                listErrorMessage?.add("Um simbolo especial (*?#!”)") else count++
+
+            if (listItens[3] >= 1)
+                listErrorMessage?.add("Um Número (0-9)") else count++
+
+        } else {
+            count++
+            listErrorMessage?.add("O campo não pode ficar em branco!")
+        }
+
+        val hasError = count != 5
+
+        return if (hasError) {
+            ValidationResult(success = false, errorMessage = listErrorMessage)
+        } else {
+            ValidationResult(success = true)
+        }
+    }
+
     override fun validateName(name: String): ValidationResult {
         val listErrorMessage: MutableList<String> = mutableListOf()
         var count = 0
@@ -169,10 +205,13 @@ class ValidationRepositoryImpl : ValidationRepository {
 
     override fun validateField(value: String): ValidationResult {
         return if (value.isNotEmpty() || value.isNotBlank()) {
-                ValidationResult(success = true, errorMessage = null)
-            } else {
-                ValidationResult(success = false, errorMessage = listOf("Campo de preenchimento obrigatório"))
-            }
+            ValidationResult(success = true, errorMessage = null)
+        } else {
+            ValidationResult(
+                success = false,
+                errorMessage = listOf("Campo de preenchimento obrigatório")
+            )
+        }
     }
 
     /**

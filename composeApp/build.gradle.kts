@@ -78,12 +78,11 @@ kotlin {
             implementation(libs.lifecycle.viewmodel)
 
             //DateTime
-            implementation(libs.kotlinx.datetime)
+            implementation(libs.kotlinx.datetime.v061)
 
             //Multiplatform Settings
-
-            implementation("com.russhwolf:multiplatform-settings:1.2.0")
-            implementation("com.russhwolf:multiplatform-settings-no-arg:1.2.0")
+            implementation(libs.multiplatform.settings)
+            implementation(libs.multiplatform.settings.no.arg)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -122,6 +121,7 @@ dependencies {
     implementation(libs.annotations)
     implementation(libs.annotations)
     implementation(libs.annotations)
+    implementation(libs.androidx.core.i18n)
     debugImplementation(compose.uiTooling)
 }
 

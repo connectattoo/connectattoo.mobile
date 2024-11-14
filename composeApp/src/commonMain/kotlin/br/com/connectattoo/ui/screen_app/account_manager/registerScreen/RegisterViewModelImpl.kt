@@ -10,6 +10,7 @@ import br.com.connectattoo.domain.repository.ValidationRepository
 import br.com.connectattoo.domain.use_cases.auth.RegisterClientUseCase
 import br.com.connectattoo.states.TaskState
 import br.com.connectattoo.util.ValidationEvent
+import br.com.connectattoo.util.toIso8601DateFormat
 import com.soujunior.domain.use_case.util.ValidationResult
 import com.soujunior.domain.use_case.util.ValidationResultPassword
 import kotlinx.coroutines.channels.Channel
@@ -31,6 +32,16 @@ class RegisterViewModelImpl(
         viewModelScope.launch {
             validationEventChannel.send(ValidationEvent.Success)
         }
+    }
+
+    init {
+        state = state.copy(
+            name = "joao",
+            email = "joao@gmail.com",
+            password = "Mudar@24",
+            repeatedPassword = "Mudar@24",
+            birthDate = "11112011"
+        )
     }
 
     override fun failed(exception: Throwable?) {
@@ -178,12 +189,13 @@ class RegisterViewModelImpl(
         }
         _taskState.value = TaskState.Loading
         viewModelScope.launch {
+            val dateFormated = state.birthDate.toIso8601DateFormat()
             val result = registerClientUseCase.execute(
                 ClientData(
                     name = state.name.replace(" ", ""),
                     email = state.email.replace(" ", ""),
                     password = state.password.replace(" ", ""),
-                    birthDate = state.birthDate.replace(" ", ""),
+                    birthDate = dateFormated?.replace(" ", "") ?: "",
                     termsAccepted = state.privacyPolicy
                 )
             )
