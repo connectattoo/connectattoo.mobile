@@ -1,8 +1,6 @@
 package br.com.connectattoo.ui.screen_app.account_manager.registerScreen
 
 import androidx.lifecycle.ViewModel
-import br.com.connectattoo.domain.model.ClientData
-import br.com.connectattoo.domain.model.TokenData
 import br.com.connectattoo.states.TaskState
 import br.com.connectattoo.util.ValidationEvent
 import kotlinx.coroutines.channels.Channel
@@ -19,7 +17,7 @@ abstract class RegisterViewModel : ViewModel() {
     open val validationEvents: Flow<ValidationEvent>
         get() = validationEventChannel.receiveAsFlow()
 
-    abstract fun success(resultPostRegister: TokenData)
+    abstract fun success(resultPostRegister: String)
      abstract fun failed(exception: Throwable?)
     abstract fun submitData()
 

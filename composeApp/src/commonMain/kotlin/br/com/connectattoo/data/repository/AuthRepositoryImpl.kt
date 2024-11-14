@@ -4,15 +4,16 @@ import br.com.connectattoo.domain.base.DataResult
 import br.com.connectattoo.domain.model.ArtistData
 import br.com.connectattoo.domain.model.ClientData
 import br.com.connectattoo.domain.model.TokenData
+import br.com.connectattoo.domain.network.NetworkResult
 import br.com.connectattoo.domain.repository.AuthRepository
 import br.com.connectattoo.util.PreferencesHelper
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
-import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
+import io.ktor.http.isSuccess
 
 class AuthRepositoryImpl(
     private val client: HttpClient,
@@ -20,26 +21,25 @@ class AuthRepositoryImpl(
     private val preferencesHelper: PreferencesHelper
 ) : AuthRepository {
 
-    override suspend fun registerClient(clientData: ClientData): DataResult<TokenData> {
+    override suspend fun registerClient(clientData: ClientData): NetworkResult<TokenData> {
         return try {
             val response = client.post("$baseURL/auth/register") {
                 contentType(ContentType.Application.Json)
                 setBody(clientData)
             }
-            val tokenData: TokenData = response.body()
-            if (response.status.value in 200..299) {
+
+            if (response.status.isSuccess()) {
+                val tokenData: TokenData = response.body()
+
                 if (!tokenData.accessToken.isNullOrEmpty()) {
-                    preferencesHelper.saveToken(tokenData.accessToken ?: "")
+                    preferencesHelper.saveToken(tokenData.accessToken)
                 }
-                DataResult.Success(tokenData)
+                NetworkResult.Success(tokenData)
             } else {
-                DataResult.Failure(Throwable("${response.bodyAsText()} "))
+                NetworkResult.Error(response.body())
             }
-
-
         } catch (e: Exception) {
-            println("Erro: ${e.message}")
-            DataResult.Failure(e)
+            NetworkResult.Exception(e)
         }
     }
 

@@ -17,5 +17,5 @@ data class RegisterFormState(
     val birthDate: String = "",
     val birthDateError: List<String>? = null,
     val privacyPolicy: Boolean = false,
-     val clientTokenData: TokenData = TokenData("")
+     val clientTokenData: String = ""
 )

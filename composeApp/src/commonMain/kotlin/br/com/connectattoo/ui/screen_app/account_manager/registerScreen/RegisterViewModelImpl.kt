@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
 import br.com.connectattoo.domain.model.ClientData
-import br.com.connectattoo.domain.model.TokenData
 import br.com.connectattoo.domain.repository.ValidationRepository
 import br.com.connectattoo.domain.use_cases.auth.RegisterClientUseCase
 import br.com.connectattoo.states.TaskState
@@ -27,7 +26,7 @@ class RegisterViewModelImpl(
     override var state by mutableStateOf(RegisterFormState())
     override val validationEventChannel = Channel<ValidationEvent>()
     override val validationEvents = validationEventChannel.receiveAsFlow()
-    override fun success(resultPostRegister: TokenData) {
+    override fun success(resultPostRegister: String) {
         state = state.copy(clientTokenData = resultPostRegister)
         viewModelScope.launch {
             validationEventChannel.send(ValidationEvent.Success)

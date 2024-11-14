@@ -1,16 +1,26 @@
-package com.soujunior.domain.network
+package br.com.connectattoo.domain.network
+
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 
 sealed class NetworkResult<T : Any> {
-    class Success<T: Any>(val data: T) : NetworkResult<T>()
-    class Error<T: Any>(val code: Int, val body: ErrorBody?) : NetworkResult<T>()
-    class Exception<T: Any>(val e: Throwable) : NetworkResult<T>()
+    @Serializable
+    class Success<T : Any>(val data: T) : NetworkResult<T>()
+
+    @Serializable
+    class Error<T : Any>(val errorResponse: ErrorResponse?) : NetworkResult<T>()
+    class Exception<T : Any>(val e: Throwable) : NetworkResult<T>()
 }
 
-data class ErrorBody(val error: String)
+@Serializable
+data class ErrorResponse(
+    val status: Int,
+    val message: String
+)
 
 /**
-*   CallBack to handle with Success
-*/
+ *   CallBack to handle with Success
+ */
 suspend fun <T : Any> NetworkResult<T>.onSuccess(
     executable: suspend (T) -> Unit
 ): NetworkResult<T> = apply {
@@ -23,10 +33,12 @@ suspend fun <T : Any> NetworkResult<T>.onSuccess(
  *   CallBack to handle with Error
  */
 suspend fun <T : Any> NetworkResult<T>.onError(
-    executable: suspend (code: Int, body: ErrorBody?) -> Unit
+    executable: suspend (body: String?) -> Unit
 ): NetworkResult<T> = apply {
     if (this is NetworkResult.Error<T>) {
-        executable(code, body)
+        val errorResponse: ErrorResponse =
+            Json.decodeFromString("${errorResponse?.status} -> ${errorResponse?.message}")
+        executable(errorResponse.message)
     }
 }
 
