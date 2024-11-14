@@ -10,6 +10,7 @@ import br.com.connectattoo.ui.screen_app.account_manager.accountConfirmation.Acc
 import br.com.connectattoo.ui.screen_app.account_manager.accountConfirmation.AccountConfirmationViewModelImpl
 import br.com.connectattoo.ui.screen_app.account_manager.loginScreen.FakeLoginViewModel
 import br.com.connectattoo.ui.screen_app.account_manager.loginScreen.LoginViewModel
+import br.com.connectattoo.ui.screen_app.account_manager.loginScreen.LoginViewModelImpl
 import br.com.connectattoo.ui.screen_app.account_manager.registerScreen.RegisterViewModel
 import br.com.connectattoo.ui.screen_app.account_manager.registerScreen.RegisterViewModelImpl
 import br.com.connectattoo.ui.screen_app.account_manager.registerScreenTattooArtist.RegisterTattooArtistViewModel
@@ -36,7 +37,7 @@ val appModule = module {
     viewModel<RegisterViewModel> { RegisterViewModelImpl(get(),get()) }
     viewModel<RegisterTattooArtistViewModel> { RegisterTattooArtistViewModelImpl(get(),get()) }
     viewModel<AccountConfirmationViewModel> { AccountConfirmationViewModelImpl(get()) }
-    viewModel<LoginViewModel> { FakeLoginViewModel() }
+    viewModel<LoginViewModel> { LoginViewModelImpl(get()) }
 
     //repository
     single<ValidationRepository> { ValidationRepositoryImpl() }

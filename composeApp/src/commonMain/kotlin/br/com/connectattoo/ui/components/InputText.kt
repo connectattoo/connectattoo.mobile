@@ -3,9 +3,12 @@ package br.com.connectattoo.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -76,10 +79,9 @@ fun InputText(
             )
         }
 
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row {
             BasicTextField(
                 modifier = textInputModifier
-                    .fillMaxWidth()
                     .testTag("InputField_test")
                     .padding(5.sdp)
                     .height(45.sdp)
@@ -104,7 +106,7 @@ fun InputText(
                 onValueChange = { text -> onEvent(text) },
                 singleLine = true,
                 textStyle = TextStyle(
-                    fontSize = 12.ssp,
+                    fontSize = 14.ssp,
                     color = if (isSystemInDarkTheme()) Color.Black else MaterialTheme.colorScheme.onSurface
                 ),
                 maxLines = 1,
@@ -117,9 +119,10 @@ fun InputText(
                 decorationBox = {
                     Row(
                         modifier = Modifier
-                            .background(Color.White).padding(start = 14.sdp),
+                            .background(Color.White)
+                            .padding(start = 14.sdp),
                         verticalAlignment = Alignment.CenterVertically
-                    ) {
+                    )  {
                         Box(
                             modifier = Modifier.weight(1f)
                         ) {
@@ -129,7 +132,7 @@ fun InputText(
                                     text = placeholderText,
                                     style = MaterialTheme.typography.bodyLarge,
                                     color = MaterialTheme.colorScheme.outline,
-                                    fontSize = 12.ssp
+                                    fontSize = 14.ssp
                                 )
                             }
                             it()
@@ -153,25 +156,33 @@ fun InputText(
             )
         }
     }
-    if (textError != null && isPassword && titleText == "Senha") {
-        AlertText(
-            textMessage = "Senha não atende as condições",
-            modifier = Modifier.padding(top = 2.sdp, bottom = 6.sdp, start = 10.sdp)
-        )
-    } else if (isPassword && titleText == "Senha") {
-        Text(
-            "*Mínimo de 8 caracteres, com 1 símbolo especial, 1 letra maiúscula, 1 letra minúscula e um numeral",
-            color = MaterialTheme.colorScheme.outline,
-            modifier = Modifier.padding(5.sdp),
-            fontSize = 10.ssp
-        )
-
-    } else if (textError != null) {
-        textError.forEach {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.background),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Start,
+    ) {
+        if (textError != null && isPassword && titleText == "Senha") {
             AlertText(
-                textMessage = it,
-                modifier = Modifier.padding(top = 6.sdp, bottom = 6.sdp, start = 10.sdp)
+                textMessage = "Senha não atende as condições",
+                modifier = Modifier.padding(top = 2.sdp, bottom = 6.sdp, start = 10.sdp)
             )
+        } else if (isPassword && titleText == "Senha") {
+            Text(
+                "*Mínimo de 8 caracteres, com 1 símbolo especial, 1 letra maiúscula, 1 letra minúscula e um numeral",
+                color = MaterialTheme.colorScheme.outline,
+                modifier = Modifier.padding(5.sdp),
+                fontSize = 10.ssp
+            )
+
+        } else if (textError != null) {
+            textError.forEach {
+                AlertText(
+                    textMessage = it,
+                    modifier = Modifier.padding(top = 6.sdp, bottom = 6.sdp, start = 10.sdp)
+                )
+            }
         }
     }
 

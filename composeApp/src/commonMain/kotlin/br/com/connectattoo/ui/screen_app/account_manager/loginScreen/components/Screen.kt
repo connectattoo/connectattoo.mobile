@@ -3,6 +3,7 @@ package br.com.connectattoo.ui.screen_app.account_manager.loginScreen.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -57,8 +58,7 @@ fun Screen(navController: NavController, viewModel: LoginViewModel) {
                             textError = viewModel.state.emailError,
                             isError = !viewModel.state.emailError.isNullOrEmpty(),
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                            modifier = Modifier
-                                .fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth()
                                 .testTag("input_email"),
                             onEvent = { it: String ->
                                 viewModel.onEvent(
@@ -90,6 +90,10 @@ fun Screen(navController: NavController, viewModel: LoginViewModel) {
                             },
                         )
 
+                    }
+                    item {
+                        Spacer(modifier = Modifier.height(50.sdp))
+                        Footer(navController, viewModel)
                     }
 
                 }
