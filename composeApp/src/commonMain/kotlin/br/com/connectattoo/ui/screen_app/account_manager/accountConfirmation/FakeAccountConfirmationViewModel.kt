@@ -1,39 +1,37 @@
 package br.com.connectattoo.ui.screen_app.account_manager.accountConfirmation
 
-import androidx.lifecycle.ViewModel
-import br.com.connectattoo.domain.model.TokenData
 import br.com.connectattoo.states.TaskState
 import br.com.connectattoo.util.ValidationEvent
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.receiveAsFlow
 
 class FakeAccountConfirmationViewModel : AccountConfirmationViewModel() {
-    /* abstract var state: RegisterFormState
-    abstract val validationEventChannel: Channel<ValidationEvent>
-    abstract val message: StateFlow<String>
-    abstract val taskState: StateFlow<TaskState>
 
-    open val validationEvents: Flow<ValidationEvent>
-        get() = validationEventChannel.receiveAsFlow()
 
-    abstract fun success(resultPostRegister: TokenData)
-     abstract fun failed(exception: Throwable?)
-    abstract fun submitData()
+    override var state: ConfirmAccountFormState
+        get() = TODO("Not yet implemented")
+        set(value) {}
+    override val validationEventChannel: Channel<ValidationEvent>
+        get() = TODO("Not yet implemented")
+    override val message: StateFlow<String>
+        get() = TODO("Not yet implemented")
+    override val taskState: StateFlow<TaskState>
+        get() = TODO("Not yet implemented")
 
-    abstract fun onEvent(event: RegisterFormEvent)
-
-    abstract fun enableButton(): Boolean
-    abstract fun change(
-        name: String? = null,
-        email: String? = null,
-        password: String? = null,
-        birthDate: String? = null,
-        repeatedPassword: String? = null,
-        privacy: Boolean? = null
-    )*/
-    override fun getToken() {
+    override fun success(clientTokenData: String) {
         TODO("Not yet implemented")
     }
+
+    override fun failed(exception: Throwable?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun checkUser() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onEvent(event: ConfirmAccountFormEvent) {
+        TODO("Not yet implemented")
+    }
+
 }

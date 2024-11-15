@@ -13,7 +13,7 @@ class PreferencesHelper(
         settings.putString(tokenKey, token)
     }
 
-    fun getToken(): String? {
+    fun getToken(): String {
         return settings.getString(tokenKey, "")
     }
 

@@ -5,6 +5,7 @@ import androidx.compose.foundation.gestures.detectVerticalDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -40,21 +41,22 @@ import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun Screen(
-    navController: NavController,
-    viewModel: AccountConfirmationViewModel
+    viewModel: AccountConfirmationViewModel,
+    paddingValues: PaddingValues
 ) {
     val isRefreshing = remember { mutableStateOf(false) }
 
     LaunchedEffect(isRefreshing.value) {
         if (isRefreshing.value) {
 
+            viewModel.checkUser()
             kotlinx.coroutines.delay(1500)
-            viewModel.getToken()
             isRefreshing.value = false
         }
     }
     Box(
         modifier = Modifier
+            .padding(paddingValues)
             .fillMaxSize()
             .systemBarsPadding()
             .pointerInput(Unit) {

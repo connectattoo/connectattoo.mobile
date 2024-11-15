@@ -16,22 +16,20 @@ import br.com.connectattoo.ui.screen_app.screen_home.HomeScreen
 @Composable
 fun Presentation() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "login") {
+    NavHost(navController = navController, startDestination = "account_confirmation") {
         composable("splash") { SplashScreen(navController) }
+        composable("login") { LoginScreen(navController) }
         composable("welcomepage") { WelcomePage(navController) }
         composable("register") { RegisterScreen(navController) }
         composable("registerTattooArtist") { RegisterTattooArtistScreen(navController) }
         composable("account_confirmation") { AccountConfirmationScreen(navController) }
-        composable("account_manager") { AccountManager() }
         composable("mainContent") { (MainContent()) }
-        composable("login") { LoginScreen(navController) }
     }
 }
 @Composable
 fun NavHostAccountManager() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "register") {
-
 
 
     }

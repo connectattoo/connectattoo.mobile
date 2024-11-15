@@ -3,6 +3,7 @@ package br.com.connectattoo.di
 import br.com.connectattoo.data.repository.AuthRepositoryImpl
 import br.com.connectattoo.domain.repository.AuthRepository
 import br.com.connectattoo.domain.repository.ValidationRepository
+import br.com.connectattoo.domain.use_cases.auth.ConfirmEmailUseCase
 import br.com.connectattoo.domain.use_cases.auth.RegisterClientUseCase
 import br.com.connectattoo.domain.use_cases.auth.RegisterTattooArtistUseCase
 import br.com.connectattoo.domain.util.ValidationRepositoryImpl
@@ -32,6 +33,7 @@ val appModule = module {
     //UseCases
     factory { RegisterClientUseCase(get()) }
     factory { RegisterTattooArtistUseCase(get()) }
+    factory { ConfirmEmailUseCase(get(), get()) }
 
     //viewModels
     viewModel<RegisterViewModel> { RegisterViewModelImpl(get(),get()) }

@@ -9,9 +9,14 @@ import br.com.connectattoo.domain.repository.AuthRepository
 import br.com.connectattoo.util.PreferencesHelper
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
+import io.ktor.client.request.get
+import io.ktor.client.request.headers
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
+import io.ktor.client.statement.HttpResponse
+import io.ktor.client.utils.EmptyContent.headers
 import io.ktor.http.ContentType
+import io.ktor.http.HttpHeaders
 import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 
@@ -39,6 +44,25 @@ class AuthRepositoryImpl(
                 NetworkResult.Error(response.body())
             }
         } catch (e: Exception) {
+            NetworkResult.Exception(e)
+        }
+    }
+
+    override suspend fun confirmEmail(token: String): NetworkResult<TokenData> {
+        return try {
+            val response: HttpResponse = client.get("$baseURL/users/confirmation") {
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer $token")
+                }
+            }
+
+            if (response.status.isSuccess()) {
+                val responseBody: TokenData = response.body()
+                NetworkResult.Success(responseBody)
+            } else {
+                NetworkResult.Error(response.body())
+            }
+        }catch (e: Exception){
             NetworkResult.Exception(e)
         }
     }
