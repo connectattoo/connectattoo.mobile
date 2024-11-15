@@ -18,7 +18,7 @@ class FakeRegisterTattooArtistViewModel : RegisterTattooArtistViewModel() {
     override val taskState: StateFlow<TaskState>
         get() = TODO("Not yet implemented")
 
-    override fun success(resultPostRegister: TokenData) {
+    override fun success(resultPostRegister: String) {
         TODO("Not yet implemented")
     }
 

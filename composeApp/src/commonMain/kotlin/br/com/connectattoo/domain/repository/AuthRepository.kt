@@ -9,5 +9,5 @@ import br.com.connectattoo.domain.network.NetworkResult
 interface AuthRepository {
     suspend fun registerClient(clientData: ClientData): NetworkResult<TokenData>
     suspend fun confirmEmail(token: String): NetworkResult<TokenData>
-    suspend fun registerTattooArtist(artistData: ArtistData): DataResult<TokenData>
+    suspend fun registerTattooArtist(artistData: ArtistData): NetworkResult<TokenData>
 }

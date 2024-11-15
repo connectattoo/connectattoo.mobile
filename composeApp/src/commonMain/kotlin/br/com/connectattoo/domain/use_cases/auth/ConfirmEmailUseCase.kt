@@ -14,7 +14,11 @@ class ConfirmEmailUseCase(
 ) : BaseUseCase<String, String>() {
     override suspend fun doWork(value: String): DataResult<String> {
         val tokenData = preferencesHelper.getToken()
-        return repository.confirmEmail(tokenData).toDataResult()
+        return if (tokenData.isNotEmpty()){
+            repository.confirmEmail(tokenData).toDataResult()
+        }else{
+            DataResult.Failure(Throwable(message = "Token não encontrado"))
+        }
     }
 
     private fun NetworkResult<TokenData>.toDataResult(): DataResult<String> {

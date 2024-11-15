@@ -1,5 +1,8 @@
 package br.com.connectattoo.domain.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class ArtistData (
     val name: String,
     val email: String,

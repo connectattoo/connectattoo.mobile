@@ -1,9 +1,9 @@
 package br.com.connectattoo.data.repository
 
-import br.com.connectattoo.domain.base.DataResult
 import br.com.connectattoo.domain.model.ArtistData
 import br.com.connectattoo.domain.model.ClientData
 import br.com.connectattoo.domain.model.TokenData
+import br.com.connectattoo.domain.network.ErrorResponse
 import br.com.connectattoo.domain.network.NetworkResult
 import br.com.connectattoo.domain.repository.AuthRepository
 import br.com.connectattoo.util.PreferencesHelper
@@ -14,7 +14,7 @@ import io.ktor.client.request.headers
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
-import io.ktor.client.utils.EmptyContent.headers
+import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.contentType
@@ -62,25 +62,36 @@ class AuthRepositoryImpl(
             } else {
                 NetworkResult.Error(response.body())
             }
-        }catch (e: Exception){
+        } catch (e: Exception) {
             NetworkResult.Exception(e)
         }
     }
 
-    override suspend fun registerTattooArtist(artistData: ArtistData): DataResult<TokenData> {
+    override suspend fun registerTattooArtist(artistData: ArtistData): NetworkResult<TokenData> {
         return try {
-            val response: TokenData = client.post("$baseURL/auth/register/artist") {
+            val response = client.post("$baseURL/auth/register/artist") {
                 contentType(ContentType.Application.Json)
                 setBody(artistData)
-            }.body()
-            if (!response.accessToken.isNullOrEmpty()) {
-                preferencesHelper.saveToken(response.accessToken)
             }
 
-            DataResult.Success(response)
+            if (response.status.isSuccess()) {
+                val tokenData: TokenData = response.body()
+
+                if (!tokenData.accessToken.isNullOrEmpty()) {
+                    preferencesHelper.saveToken(tokenData.accessToken)
+                }
+                NetworkResult.Success(tokenData)
+            } else {
+                val errorBody = response.bodyAsText()
+                if (errorBody.contains("message")) {
+                    val errorMessage = "Erro(s) no cadastro: $errorBody"
+                    NetworkResult.Error(ErrorResponse(response.status.value, errorMessage))
+                } else {
+                    NetworkResult.Error(ErrorResponse(response.status.value, errorBody))
+                }
+            }
         } catch (e: Exception) {
-            println(e.message)
-            DataResult.Failure(e)
+            NetworkResult.Exception(e)
         }
     }
 

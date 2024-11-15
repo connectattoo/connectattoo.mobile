@@ -1,5 +1,8 @@
 package br.com.connectattoo.domain.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class AddressData (
     val street: String,
     val number: String,

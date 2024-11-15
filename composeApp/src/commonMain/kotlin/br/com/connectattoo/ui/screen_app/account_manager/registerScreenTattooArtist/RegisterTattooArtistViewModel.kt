@@ -18,7 +18,7 @@ abstract class RegisterTattooArtistViewModel : ViewModel() {
     open val validationEvents: Flow<ValidationEvent>
         get() = validationEventChannel.receiveAsFlow()
 
-    abstract fun success(resultPostRegister: TokenData)
+    abstract fun success(resultPostRegister: String)
      abstract fun failed(exception: Throwable?)
     abstract fun submitData()
 
