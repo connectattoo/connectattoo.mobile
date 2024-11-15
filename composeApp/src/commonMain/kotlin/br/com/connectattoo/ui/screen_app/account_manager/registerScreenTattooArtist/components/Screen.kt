@@ -5,13 +5,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
@@ -26,7 +24,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import br.com.connectattoo.states.TaskState
 import br.com.connectattoo.ui.components.ButtonBackgroundPurple
@@ -202,19 +199,13 @@ fun Screen(
                     )
                 }
                 item {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .align(Alignment.CenterHorizontally),
-                        horizontalArrangement = Arrangement.spacedBy(0.2.dp)
-                    ) {
-                        InputText(
+                    InputText(
                             titleText = "Rua",
                             placeholderText = "Santa Catarina",
                             textValue = viewModel.state.street,
                             isError = !viewModel.state.streetError.isNullOrEmpty(),
                             modifier = Modifier
-                                .weight(1f)
+                                .fillMaxWidth()
                                 .testTag("input_rua"),
                             onEvent = { it: String ->
                                 viewModel.onEvent(
@@ -230,7 +221,7 @@ fun Screen(
                             isError = !viewModel.state.numberError.isNullOrEmpty(),
                             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                             modifier = Modifier
-                                .weight(1f)
+                                .fillMaxWidth()
                                 .testTag("input_numero"),
                             onEvent = { it: String ->
                                 viewModel.onEvent(
@@ -238,7 +229,8 @@ fun Screen(
                                 )
                             }
                         )
-                    }
+
+
                 }
                 item {
                     InputText(
