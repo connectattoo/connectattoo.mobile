@@ -33,16 +33,6 @@ class RegisterViewModelImpl(
         }
     }
 
-    init {
-        state = state.copy(
-            name = "joao",
-            email = "joao@gmail.com",
-            password = "Mudar@24",
-            repeatedPassword = "Mudar@24",
-            birthDate = "11112011"
-        )
-    }
-
     override fun failed(exception: Throwable?) {
         setMessage.value = exception?.message ?: "Unknown Error"
         viewModelScope.launch { validationEventChannel.send(ValidationEvent.Failed) }
@@ -116,7 +106,6 @@ class RegisterViewModelImpl(
                         passwordError = listOf("Senha não atende as condições")
                     )
                     else state.copy(passwordErrorMessages = null, passwordError = null)
-                change(repeatedPassword = state.repeatedPassword)
             }
 
             repeatedPassword != null -> {

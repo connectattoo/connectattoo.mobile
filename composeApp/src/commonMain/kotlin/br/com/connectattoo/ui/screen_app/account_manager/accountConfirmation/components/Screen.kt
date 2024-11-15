@@ -58,7 +58,6 @@ fun Screen(
         modifier = Modifier
             .padding(paddingValues)
             .fillMaxSize()
-            .systemBarsPadding()
             .pointerInput(Unit) {
                 detectVerticalDragGestures(
                     onVerticalDrag = { _, dragAmount ->

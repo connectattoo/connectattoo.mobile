@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.navigation.NavController
 import br.com.connectattoo.states.TaskState
@@ -97,7 +98,7 @@ fun Screen(
                         textValue = viewModel.state.email,
                         textError = viewModel.state.emailError,
                         isError = !viewModel.state.emailError.isNullOrEmpty(),
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email, imeAction = ImeAction.Next),
                         modifier = Modifier
                             .fillMaxWidth()
                             .testTag("input_email"),

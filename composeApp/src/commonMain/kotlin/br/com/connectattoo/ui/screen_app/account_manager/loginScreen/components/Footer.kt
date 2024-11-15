@@ -71,7 +71,7 @@ fun Footer(
                 text = "Continuar",
                 textColor = if (isDarkMode) MaterialTheme.colorScheme.primary else Color.White,
                 submit = { viewModel.onEvent(LoginFormEvent.Submit) },
-                enableButton = viewModel.enableButton(),
+                enableButton = true,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 40.sdp, end = 40.sdp)

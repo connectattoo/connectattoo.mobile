@@ -33,21 +33,6 @@ class RegisterTattooArtistViewModelImpl(
             validationEventChannel.send(ValidationEvent.Success)
         }
     }
-    init {
-        state = state.copy(
-            name = "joao",
-            email = "joao@gmail.com",
-            password = "Mudar@24",
-            repeatedPassword = "Mudar@24",
-            birthDate = "11112011",
-            street = "Rua dos Bobos",
-            number = "1",
-            city = "São Paulo",
-            stateAddress = "Sao paulo",
-            zipCode = "123"
-        )
-
-    }
 
     override fun failed(exception: Throwable?) {
         setMessage.value = exception?.message ?: "Unknown Error"

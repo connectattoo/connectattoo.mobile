@@ -33,6 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -58,7 +59,7 @@ fun InputText(
     textError: List<String>? = null,
     onEvent: (String) -> Unit,
     hasAMask: Boolean = false,
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
     visualTransformation: VisualTransformation = VisualTransformation.None
 ) {
     var showPassword by remember { mutableStateOf(false) }
@@ -156,12 +157,12 @@ fun InputText(
             )
         }
     }
-    Row(
+    Column(
         Modifier
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.background),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Start,
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.Start
     ) {
         if (textError != null && isPassword && titleText == "Senha") {
             AlertText(

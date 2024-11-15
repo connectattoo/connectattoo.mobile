@@ -45,7 +45,7 @@ fun SplashScreen(navController: NavHostController) {
 
                         }
 
-                        else -> navController.navigate("welcomepage")
+                        else -> navController.navigate("login")
                     }
 
                 }

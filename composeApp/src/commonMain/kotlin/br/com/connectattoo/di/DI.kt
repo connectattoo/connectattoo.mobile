@@ -1,5 +1,6 @@
 package br.com.connectattoo.di
 
+import br.com.connectattoo.Platform
 import br.com.connectattoo.data.repository.AuthRepositoryImpl
 import br.com.connectattoo.domain.repository.AuthRepository
 import br.com.connectattoo.domain.repository.ValidationRepository
@@ -7,6 +8,7 @@ import br.com.connectattoo.domain.use_cases.auth.ConfirmEmailUseCase
 import br.com.connectattoo.domain.use_cases.auth.RegisterClientUseCase
 import br.com.connectattoo.domain.use_cases.auth.RegisterTattooArtistUseCase
 import br.com.connectattoo.domain.util.ValidationRepositoryImpl
+import br.com.connectattoo.isIOS
 import br.com.connectattoo.ui.screen_app.account_manager.accountConfirmation.AccountConfirmationViewModel
 import br.com.connectattoo.ui.screen_app.account_manager.accountConfirmation.AccountConfirmationViewModelImpl
 import br.com.connectattoo.ui.screen_app.account_manager.loginScreen.FakeLoginViewModel
@@ -48,7 +50,8 @@ val appModule = module {
     single<ValidationRepository> { ValidationRepositoryImpl() }
     single<AuthRepository> { AuthRepositoryImpl(get(), get(), get()) }
 
-    single { "http://10.0.2.2:3000/api/v1" }
+    //single { "http://10.0.2.2:3000/api/v1" }
+    single {  if (isIOS()) "http://127.0.0.1:3000/api/v1" else "http://10.0.2.2:3000/api/v1" }
     single {
         HttpClient {
             install(ContentNegotiation) {

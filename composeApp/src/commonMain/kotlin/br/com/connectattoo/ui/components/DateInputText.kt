@@ -26,6 +26,7 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -43,6 +44,7 @@ fun DateInputText(
     isError: Boolean = false,
     textError: List<String>? = null,
     onEvent: (String) -> Unit,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
     visualTransformation: VisualTransformation = VisualTransformation.None
 ) {
     val colorBorder = MaterialTheme.colorScheme.outline
@@ -108,7 +110,8 @@ fun DateInputText(
                     maxLines = 1,
                     visualTransformation = visualTransformation,
                     keyboardOptions = KeyboardOptions.Default.copy(
-                        keyboardType = KeyboardType.Number
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Done
                     )
                 )
 
