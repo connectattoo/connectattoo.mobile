@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -18,22 +19,38 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.navigation.NavHostController
 import br.com.connectattoo.ui.components.ImageLogo
+import br.com.connectattoo.util.ValidationEvent
 import connectattoo.composeapp.generated.resources.Res
 import connectattoo.composeapp.generated.resources.image_splash
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import network.chaintech.sdpcomposemultiplatform.sdp
 import org.jetbrains.compose.resources.painterResource
+import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.annotation.KoinExperimentalAPI
 
-@OptIn(DelicateCoroutinesApi::class)
+@OptIn(KoinExperimentalAPI::class)
 @Composable
 fun SplashScreen(navController: NavHostController) {
-    GlobalScope.launch(Dispatchers.Main) {
-        delay(2000)
-        navController.navigate("welcomepage")
+    val viewModel: SplashViewModel = koinViewModel()
+    LaunchedEffect(key1 = viewModel) {
+        viewModel.validationEvents.collect { event ->
+            when (event) {
+                is ValidationEvent.Success -> {
+                    navController.navigate("mainContent")
+                }
+
+                is ValidationEvent.Failed -> {
+                    when (viewModel.message.value) {
+                        "Usuário não foi confirmado." -> {
+                            navController.navigate("account_confirmation")
+
+                        }
+
+                        else -> navController.navigate("welcomepage")
+                    }
+
+                }
+            }
+        }
     }
     Box(
         modifier = Modifier

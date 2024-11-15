@@ -1,8 +1,5 @@
-package br.com.connectattoo.ui.screen_app.account_manager.accountConfirmation
+package br.com.connectattoo.ui.screen_app.screens_apresentation.splashScreen
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
 import br.com.connectattoo.domain.use_cases.auth.ConfirmEmailUseCase
 import br.com.connectattoo.states.TaskState
@@ -12,11 +9,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class AccountConfirmationViewModelImpl(
+class SplashViewModelImpl(
     private val confirmEmailUseCase: ConfirmEmailUseCase
-) : AccountConfirmationViewModel() {
+) : SplashViewModel() {
 
-    override var state by mutableStateOf(ConfirmAccountFormState())
     override val validationEventChannel = Channel<ValidationEvent>()
     private val setMessage = MutableStateFlow("")
     override val message: StateFlow<String>
@@ -24,8 +20,11 @@ class AccountConfirmationViewModelImpl(
     private val _taskState: MutableStateFlow<TaskState> = MutableStateFlow(TaskState.Idle)
     override val taskState: StateFlow<TaskState> get() = _taskState
 
+    init {
+        checkUser()
+    }
+
     override fun success(clientTokenData: String) {
-        state = state.copy(clientTokenData = clientTokenData)
         viewModelScope.launch {
             validationEventChannel.send(ValidationEvent.Success)
         }
@@ -41,15 +40,15 @@ class AccountConfirmationViewModelImpl(
     override fun checkUser() {
         _taskState.value = TaskState.Loading
         viewModelScope.launch {
-            val result = confirmEmailUseCase.execute(state.clientTokenData)
+            val result = confirmEmailUseCase.execute("")
             result.handleResult(::success, ::failed)
         }
         _taskState.value = TaskState.Idle
     }
 
-    override fun onEvent(event: ConfirmAccountFormEvent) {
+    override fun onEvent(event: SplashFormEvent) {
         when (event) {
-            ConfirmAccountFormEvent.Refresh -> checkUser()
+            SplashFormEvent.Refresh -> checkUser()
             else -> {}
         }
     }

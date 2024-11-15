@@ -16,6 +16,8 @@ import br.com.connectattoo.ui.screen_app.account_manager.registerScreen.Register
 import br.com.connectattoo.ui.screen_app.account_manager.registerScreen.RegisterViewModelImpl
 import br.com.connectattoo.ui.screen_app.account_manager.registerScreenTattooArtist.RegisterTattooArtistViewModel
 import br.com.connectattoo.ui.screen_app.account_manager.registerScreenTattooArtist.RegisterTattooArtistViewModelImpl
+import br.com.connectattoo.ui.screen_app.screens_apresentation.splashScreen.SplashViewModel
+import br.com.connectattoo.ui.screen_app.screens_apresentation.splashScreen.SplashViewModelImpl
 import br.com.connectattoo.util.PreferencesHelper
 import com.russhwolf.settings.Settings
 import io.ktor.client.HttpClient
@@ -40,6 +42,7 @@ val appModule = module {
     viewModel<RegisterTattooArtistViewModel> { RegisterTattooArtistViewModelImpl(get(),get()) }
     viewModel<AccountConfirmationViewModel> { AccountConfirmationViewModelImpl(get()) }
     viewModel<LoginViewModel> { LoginViewModelImpl(get()) }
+    viewModel<SplashViewModel> { SplashViewModelImpl(get()) }
 
     //repository
     single<ValidationRepository> { ValidationRepositoryImpl() }
