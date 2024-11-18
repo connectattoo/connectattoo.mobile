@@ -1,6 +1,5 @@
 package br.com.connectattoo.di
 
-import br.com.connectattoo.Platform
 import br.com.connectattoo.data.repository.AuthRepositoryImpl
 import br.com.connectattoo.domain.repository.AuthRepository
 import br.com.connectattoo.domain.repository.ValidationRepository
@@ -11,7 +10,6 @@ import br.com.connectattoo.domain.util.ValidationRepositoryImpl
 import br.com.connectattoo.isIOS
 import br.com.connectattoo.ui.screen_app.account_manager.accountConfirmation.AccountConfirmationViewModel
 import br.com.connectattoo.ui.screen_app.account_manager.accountConfirmation.AccountConfirmationViewModelImpl
-import br.com.connectattoo.ui.screen_app.account_manager.loginScreen.FakeLoginViewModel
 import br.com.connectattoo.ui.screen_app.account_manager.loginScreen.LoginViewModel
 import br.com.connectattoo.ui.screen_app.account_manager.loginScreen.LoginViewModelImpl
 import br.com.connectattoo.ui.screen_app.account_manager.registerScreen.RegisterViewModel
@@ -40,8 +38,8 @@ val appModule = module {
     factory { ConfirmEmailUseCase(get(), get()) }
 
     //viewModels
-    viewModel<RegisterViewModel> { RegisterViewModelImpl(get(),get()) }
-    viewModel<RegisterTattooArtistViewModel> { RegisterTattooArtistViewModelImpl(get(),get()) }
+    viewModel<RegisterViewModel> { RegisterViewModelImpl(get(), get()) }
+    viewModel<RegisterTattooArtistViewModel> { RegisterTattooArtistViewModelImpl(get(), get()) }
     viewModel<AccountConfirmationViewModel> { AccountConfirmationViewModelImpl(get()) }
     viewModel<LoginViewModel> { LoginViewModelImpl(get()) }
     viewModel<SplashViewModel> { SplashViewModelImpl(get()) }
@@ -51,11 +49,16 @@ val appModule = module {
     single<AuthRepository> { AuthRepositoryImpl(get(), get(), get()) }
 
     //single { "http://10.0.2.2:3000/api/v1" }
-    single {  if (isIOS()) "http://127.0.0.1:3000/api/v1" else "http://10.0.2.2:3000/api/v1" }
+    single { if (isIOS()) "http://127.0.0.1:3000/api/v1" else "http://10.0.2.2:3000/api/v1" }
     single {
         HttpClient {
             install(ContentNegotiation) {
-                json(Json { ignoreUnknownKeys = true })
+                json(Json {
+                    ignoreUnknownKeys = true
+                    encodeDefaults = true
+                    prettyPrint = true
+                    isLenient = true
+                })
             }
             install(Logging) {
                 level = LogLevel.BODY

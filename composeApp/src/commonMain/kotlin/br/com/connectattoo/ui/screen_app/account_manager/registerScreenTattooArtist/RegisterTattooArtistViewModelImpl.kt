@@ -255,7 +255,7 @@ class RegisterTattooArtistViewModelImpl(
                 city = state.city,
                 state = state.stateAddress,
                 zipCode = state.zipCode,
-                country = "Brasil"
+                country = "B"
             )
             val dateFormated = state.birthDate.toIso8601DateFormat()
             val result = registerTattooArtistUseCase.execute(

@@ -6,6 +6,7 @@ import br.com.connectattoo.domain.model.ArtistData
 import br.com.connectattoo.domain.model.TokenData
 import br.com.connectattoo.domain.network.NetworkResult
 import br.com.connectattoo.domain.repository.AuthRepository
+import kotlinx.serialization.json.Json
 
 class RegisterTattooArtistUseCase(
     private val repository: AuthRepository

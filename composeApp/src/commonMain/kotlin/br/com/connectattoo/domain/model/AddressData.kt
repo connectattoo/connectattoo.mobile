@@ -8,6 +8,6 @@ data class AddressData (
     val number: String,
     val city: String,
     val state: String,
-    val country: String = "Brasil",
+    val country: String = "B",
     val zipCode: String
 )
