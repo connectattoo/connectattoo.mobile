@@ -15,6 +15,7 @@ import br.com.connectattoo.domain.model.TagHomeScreen
 import br.com.connectattoo.domain.model.TattoosBasedOnTagsHomeScreen
 import br.com.connectattoo.ui.components.NavigationBar
 import br.com.connectattoo.ui.components.ScaffoldCustom
+import br.com.connectattoo.ui.screen_app.listTattoosBasedOnTagsHomeScreen
 import network.chaintech.sdpcomposemultiplatform.sdp
 
 
@@ -47,15 +48,7 @@ fun Screen(navController: NavController) {
 
                     }
                     item {
-                        val list = listOf(
-                            TattoosBasedOnTagsHomeScreen(id= 1,
-                                imageTattoo = "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Ffirst_carousel%2Ftattoo_tesoura.png",
-                                listTagHomeScreens = listOf(
-                                    TagHomeScreen(id = 1, title = "Old Schol"),  TagHomeScreen(id = 1, title = "PB"), TagHomeScreen(id = 1, title = "Old")
-                                )
-                            )
-                        )
-                        HorizontalListWithCards(list, onAddMoreClicked = {
+                        HorizontalListWithCards(listTattoosBasedOnTagsHomeScreen, onAddMoreClicked = {
 
                         })
                     }
