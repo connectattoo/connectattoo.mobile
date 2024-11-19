@@ -3,9 +3,12 @@ package br.com.connectattoo.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -30,6 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -55,7 +59,7 @@ fun InputText(
     textError: List<String>? = null,
     onEvent: (String) -> Unit,
     hasAMask: Boolean = false,
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
     visualTransformation: VisualTransformation = VisualTransformation.None
 ) {
     var showPassword by remember { mutableStateOf(false) }
@@ -72,14 +76,13 @@ fun InputText(
                 fontSize = 12.ssp,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 10.sdp, bottom = 5.sdp, top = 15.sdp)
+                    .padding(start = 10.sdp, top = 5.sdp)
             )
         }
 
         Row {
             BasicTextField(
                 modifier = textInputModifier
-                    .fillMaxWidth()
                     .testTag("InputField_test")
                     .padding(5.sdp)
                     .height(45.sdp)
@@ -88,7 +91,7 @@ fun InputText(
                             width = 1.dp.toPx(),
                         )
                         drawRoundRect(
-                            color = if (isError) Color.Transparent else if (!isError && textValue.isNotEmpty()) Color.Transparent  else colorBorder,
+                            color = if (isError) Color.Transparent else if (!isError && textValue.isNotEmpty()) Color.Transparent else colorBorder,
                             style = stroke,
                             cornerRadius = CornerRadius(5.dp.toPx())
                         )
@@ -104,7 +107,7 @@ fun InputText(
                 onValueChange = { text -> onEvent(text) },
                 singleLine = true,
                 textStyle = TextStyle(
-                    fontSize = 15.ssp,
+                    fontSize = 14.ssp,
                     color = if (isSystemInDarkTheme()) Color.Black else MaterialTheme.colorScheme.onSurface
                 ),
                 maxLines = 1,
@@ -120,7 +123,7 @@ fun InputText(
                             .background(Color.White)
                             .padding(start = 14.sdp),
                         verticalAlignment = Alignment.CenterVertically
-                    ) {
+                    )  {
                         Box(
                             modifier = Modifier.weight(1f)
                         ) {
@@ -130,7 +133,7 @@ fun InputText(
                                     text = placeholderText,
                                     style = MaterialTheme.typography.bodyLarge,
                                     color = MaterialTheme.colorScheme.outline,
-                                    fontSize = 15.ssp
+                                    fontSize = 14.ssp
                                 )
                             }
                             it()
@@ -154,21 +157,34 @@ fun InputText(
             )
         }
     }
-    if (textError != null) {
-        textError.forEach {
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.background),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.Start
+    ) {
+        if (textError != null && isPassword && titleText == "Senha") {
             AlertText(
-                textMessage = it,
-                modifier = Modifier.padding(top = 6.sdp, bottom = 6.sdp, start = 10.sdp)
+                textMessage = "Senha não atende as condições",
+                modifier = Modifier.padding(top = 2.sdp, bottom = 6.sdp, start = 10.sdp)
             )
-        }
-    } else if (isPassword && titleText == "Senha") {
-        Text(
-            "*Mínimo de 8 caracteres, com 1 símbolo especial, 1 letra maiúscula, 1 letra minúscula e um numeral",
-            color = MaterialTheme.colorScheme.outline,
-            modifier = Modifier.padding(5.sdp),
-            fontSize = 10.ssp
-        )
+        } else if (isPassword && titleText == "Senha") {
+            Text(
+                "*Mínimo de 8 caracteres, com 1 símbolo especial, 1 letra maiúscula, 1 letra minúscula e um numeral",
+                color = MaterialTheme.colorScheme.outline,
+                modifier = Modifier.padding(5.sdp),
+                fontSize = 10.ssp
+            )
 
+        } else if (textError != null) {
+            textError.forEach {
+                AlertText(
+                    textMessage = it,
+                    modifier = Modifier.padding(top = 6.sdp, bottom = 6.sdp, start = 10.sdp)
+                )
+            }
+        }
     }
 
 }

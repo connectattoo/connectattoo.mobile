@@ -4,10 +4,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
+import br.com.connectattoo.domain.model.ClientData
 import br.com.connectattoo.domain.repository.ValidationRepository
+import br.com.connectattoo.domain.use_cases.auth.RegisterClientUseCase
 import br.com.connectattoo.states.TaskState
 import br.com.connectattoo.util.ValidationEvent
+import br.com.connectattoo.util.toIso8601DateFormat
 import com.soujunior.domain.use_case.util.ValidationResult
+import com.soujunior.domain.use_case.util.ValidationResultPassword
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,13 +19,24 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class RegisterViewModelImpl(
-    // private val signUpUseCase: SignUpUseCase,
+    private val registerClientUseCase: RegisterClientUseCase,
     private val validation: ValidationRepository
 ) : RegisterViewModel() {
 
     override var state by mutableStateOf(RegisterFormState())
     override val validationEventChannel = Channel<ValidationEvent>()
     override val validationEvents = validationEventChannel.receiveAsFlow()
+    override fun success(resultPostRegister: String) {
+        state = state.copy(clientTokenData = resultPostRegister)
+        viewModelScope.launch {
+            validationEventChannel.send(ValidationEvent.Success)
+        }
+    }
+
+    override fun failed(exception: Throwable?) {
+        setMessage.value = exception?.message ?: "Unknown Error"
+        viewModelScope.launch { validationEventChannel.send(ValidationEvent.Failed) }
+    }
 
     override val message: StateFlow<String> get() = setMessage
     private val setMessage = MutableStateFlow("")
@@ -34,6 +49,10 @@ class RegisterViewModelImpl(
         return listOf(result).any { !it.success }
     }
 
+    private fun hasErrorPassword(result: ValidationResultPassword): Boolean {
+        return listOf(result).any { !it.success }
+    }
+
     override fun enableButton(): Boolean {
         val nameResult = validation.validateName(state.name)
         val emailResult = validation.validateEmail(state.email)
@@ -42,7 +61,6 @@ class RegisterViewModelImpl(
             validation.validateRepeatedPassword(state.password, state.repeatedPassword)
 
         return state.name.isNotBlank() &&
-                state.lastName.isNotBlank() &&
                 state.email.isNotBlank() &&
                 state.password.isNotBlank() &&
                 state.repeatedPassword.isNotBlank() &&
@@ -55,9 +73,7 @@ class RegisterViewModelImpl(
 
     override fun change(
         name: String?,
-        lastName: String?,
         email: String?,
-        phone: String?,
         password: String?,
         birthDate: String?,
         repeatedPassword: String?,
@@ -85,9 +101,11 @@ class RegisterViewModelImpl(
                     password = state.password
                 )
                 state =
-                    if (hasError(passwordResult)) state.copy(passwordError = passwordResult.errorMessage)
-                    else state.copy(passwordError = null)
-                change(repeatedPassword = state.repeatedPassword)
+                    if (hasErrorPassword(passwordResult)) state.copy(
+                        passwordErrorMessages = passwordResult.errorMessage,
+                        passwordError = listOf("Senha não atende as condições")
+                    )
+                    else state.copy(passwordErrorMessages = null, passwordError = null)
             }
 
             repeatedPassword != null -> {
@@ -99,6 +117,14 @@ class RegisterViewModelImpl(
                 state =
                     if (hasError(repeatedPasswordResult)) state.copy(repeatedPasswordError = repeatedPasswordResult.errorMessage)
                     else state.copy(repeatedPasswordError = null)
+            }
+
+            birthDate != null -> {
+                state = state.copy(birthDate = birthDate)
+                val birthDateResult = validation.validateDate(state.birthDate)
+                state =
+                    if (hasError(birthDateResult)) state.copy(birthDateError = birthDateResult.errorMessage)
+                    else state.copy(birthDateError = null)
             }
 
             privacy != null -> {
@@ -125,21 +151,45 @@ class RegisterViewModelImpl(
     }
 
     override fun submitData() {
+        val emailResult = validation.validateEmail(state.email)
+        val name = validation.validateName(state.name)
+        val confirmPasswordResult =
+            validation.validateRepeatedPassword(state.repeatedPassword, state.password)
+        val birthDateResult = validation.validateDate(state.birthDate)
+        val passwordResult = validation.validatePassword(state.password)
+        val hasError =
+            listOf(emailResult, name, confirmPasswordResult, birthDateResult).any { !it.success }
+        val hasErrorPassword = listOf(passwordResult).any { !it.success }
+        if (hasErrorPassword) {
+            state = state.copy(
+                passwordError = listOf("Senha não atende as condições")
+            )
+
+        }
+        if (hasError) {
+            state = state.copy(
+                emailError = emailResult.errorMessage,
+                nameError = name.errorMessage,
+                repeatedPasswordError = confirmPasswordResult.errorMessage,
+                birthDateError = birthDateResult.errorMessage
+            )
+            return
+        }
         _taskState.value = TaskState.Loading
         viewModelScope.launch {
-            /* val result = signUpUseCase.execute(
-                 SignUpModel(
-                     firstName = state.name.replace(" ", ""),
-                     lastName = state.lastName.replace(" ", ""),
-                     email = state.email.replace(" ", ""),
-                     phone = state.phone.replace(" ", ""),
-                     password = state.password.replace(" ", ""),
-                     passwordConfirmation = state.password.replace(" ", ""),
-                     isPrivacyPolicyAccepted = state.privacyPolicy
-                 )
-             )
-             result.handleResult(::success, ::failed)
-             _taskState.value = TaskState.Idle*/
+            val dateFormated = state.birthDate.toIso8601DateFormat()
+            val result = registerClientUseCase.execute(
+                ClientData(
+                    name = state.name.replace(" ", ""),
+                    email = state.email.replace(" ", ""),
+                    password = state.password.replace(" ", ""),
+                    birthDate = dateFormated?.replace(" ", "") ?: "",
+                    termsAccepted = state.privacyPolicy
+                )
+            )
+            result.handleResult(::success, ::failed)
+
+            _taskState.value = TaskState.Idle
         }
     }
 }

@@ -79,8 +79,7 @@ fun WelcomePage(navController: NavHostController) {
 
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 10.sdp),
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
@@ -151,7 +150,7 @@ fun WelcomePage(navController: NavHostController) {
                             ) {
                                 Button(
                                     onClick = {
-                                        navController.navigate("account_manager")
+                                        navController.navigate("registerTattooArtist")
                                     },
                                     modifier = Modifier.weight(1f)
                                         .size(130.sdp).height(450.sdp),
@@ -182,7 +181,7 @@ fun WelcomePage(navController: NavHostController) {
 
                                 Button(
                                     onClick = {
-                                        navController.navigate("account_manager")
+                                        navController.navigate("register")
                                     },
                                     modifier = Modifier.weight(1f)
                                         .size(130.sdp).height(450.sdp),
