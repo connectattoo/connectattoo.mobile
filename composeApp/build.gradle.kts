@@ -1,4 +1,3 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -83,6 +82,12 @@ kotlin {
             //Multiplatform Settings
             implementation(libs.multiplatform.settings)
             implementation(libs.multiplatform.settings.no.arg)
+
+            //coil load Images
+            implementation(libs.landscapist.coil3)
+            implementation(libs.landscapist.placeholder)
+            implementation(libs.landscapist.animation)
+            implementation(libs.landscapist.palette)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -92,7 +97,7 @@ kotlin {
 
 android {
     namespace = "br.com.connectattoo"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "br.com.connectattoo"
