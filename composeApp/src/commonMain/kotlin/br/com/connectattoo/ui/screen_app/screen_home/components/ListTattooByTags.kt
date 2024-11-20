@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -27,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import br.com.connectattoo.domain.model.TattoosBasedOnTagsHomeScreen
@@ -112,45 +114,60 @@ fun CardWithImageAndTags(tattoo: TattoosBasedOnTagsHomeScreen) {
                     .fillMaxWidth()
                     .padding(start = 8.sdp)
                     .align(Alignment.BottomStart),
-                horizontalAlignment = Alignment.Start
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.Center
             ) {
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 2.sdp),
-                    horizontalArrangement = Arrangement.Start
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 2.sdp).height(18.sdp),
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     tattoo.listTagHomeScreens?.take(2)?.forEach { tag ->
-                        Text(
-                            text = tag.title ?: "",
-                            color = if (tag.backgroundDeepPurple) Color.White else MaterialTheme.colorScheme.primary,
-                            fontSize = 8.ssp,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
+
+                        Box(
                             modifier = Modifier
-                                .padding(end = 8.sdp)
-                                .clip(RoundedCornerShape(34.dp))
-                                .background((if (tag.backgroundDeepPurple) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.inverseOnSurface))
-                                .padding(horizontal = 4.sdp)
-                        )
+                                .padding(end = 2.sdp)
+                                .clip(RoundedCornerShape(24.dp))
+                                .background(if (tag.backgroundDeepPurple) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.inverseOnSurface)
+                                .height(18.sdp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = tag.title ?: "",
+                                color = if (tag.backgroundDeepPurple) Color.White else MaterialTheme.colorScheme.primary,
+                                fontSize = 8.ssp,
+                                textAlign = TextAlign.Center,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                                modifier = Modifier.padding(horizontal = 8.sdp).offset(y = (-3).sdp)
+                            )
+                        }
                     }
                 }
 
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(2.sdp),
+                    modifier = Modifier.fillMaxWidth().padding(2.sdp).height(18.sdp),
                     horizontalArrangement = Arrangement.Start
                 ) {
                     tattoo.listTagHomeScreens?.drop(2)?.take(2)?.forEach { tag ->
-                        Text(
-                            text = tag.title ?: "",
-                            color = if (tag.backgroundDeepPurple) Color.White else MaterialTheme.colorScheme.primary,
-                            fontSize = 8.ssp,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
+                        Box(
                             modifier = Modifier
-                                .padding(end = 8.sdp)
-                                .clip(RoundedCornerShape(34.dp))
+                                .padding(end = 2.sdp)
+                                .clip(RoundedCornerShape(24.dp))
                                 .background(if (tag.backgroundDeepPurple) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.inverseOnSurface)
-                                .padding(horizontal = 4.sdp)
-                        )
+                                .height(18.sdp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = tag.title ?: "",
+                                color = if (tag.backgroundDeepPurple) Color.White else MaterialTheme.colorScheme.primary,
+                                fontSize = 8.ssp,
+                                textAlign = TextAlign.Center,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis,
+                                modifier = Modifier.padding(horizontal = 8.sdp).offset(y = (-3).sdp)
+                            )
+                        }
                     }
                 }
             }

@@ -121,7 +121,7 @@ fun CardNearbyTattooArtist(tattooArtists: NearbyTattooArtists) {
                     )
             )
             Surface(
-                modifier = Modifier.height(30.sdp).align(Alignment.TopEnd).padding(top = 6.sdp, end = 6.sdp),
+                modifier = Modifier.height(25.sdp).align(Alignment.TopEnd).padding(top = 6.sdp, end = 6.sdp),
                 shape = RoundedCornerShape(11.sdp),
                 color = MaterialTheme.colorScheme.primary
             ) {
@@ -136,7 +136,7 @@ fun CardNearbyTattooArtist(tattooArtists: NearbyTattooArtists) {
                         contentDescription = "Imagem logo",
                     )
                     Text(
-                        modifier = Modifier.offset(y = (-1).sdp),
+                        modifier = Modifier.offset(y = (-4).sdp),
                         fontSize = 8.ssp,
                         fontWeight = FontWeight.Bold,
                         text = tattooArtists.assessment ?: "5",
