@@ -1,5 +1,6 @@
 package br.com.connectattoo.ui.screen_app
 
+import br.com.connectattoo.domain.model.NearbyTattooArtists
 import br.com.connectattoo.domain.model.TagHomeScreen
 import br.com.connectattoo.domain.model.TattoosBasedOnTagsHomeScreen
 
@@ -79,4 +80,49 @@ val listTattoosBasedOnTagsHomeScreen = listOf(
          TagHomeScreen(id = 1, title = "6 Schol"),  TagHomeScreen(id = 1, title = "6 PBBBB"), TagHomeScreen(id = 1, title = "5 OldDDD"),
       )
    )
+)
+
+val listNearbyTattooArtists = listOf(
+   NearbyTattooArtists(
+      tattoo =  "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fthird_carousel%2Ftattoo_rosto_cobras.png",
+      name = "Larissa Dinis Dinis Dinis",
+      assessment = "4.7",
+      address = "endereço 1 da rua tal de tal",
+      profileImage = "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fsecond_carousel%2Favatar%2Favatar_marcus_freites.png"
+   ),
+   NearbyTattooArtists(
+      tattoo =  "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fthird_carousel%2Ftattoo_rosto_cobras.png",
+      name = "Pedro",
+      assessment = "4.9",
+      address = "3",
+      profileImage = "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fsecond_carousel%2Favatar%2Favatar_larissa_dias.png"
+   ),
+   NearbyTattooArtists(
+      tattoo =  "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fthird_carousel%2Ftattoo_rosto_cobras.png",
+      name = "Pedro",
+      assessment = "5.9",
+      address = "5",
+      profileImage = "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fsecond_carousel%2Favatar%2Favatar_larissa_dias.png"
+   ),
+   NearbyTattooArtists(
+      tattoo =  "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fthird_carousel%2Ftattoo_rosto_cobras.png",
+      name = "Larissa Dinis Dinis Dinis",
+      assessment = "4.7",
+      address = "endereço 1 da rua tal de tal",
+      profileImage = "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fsecond_carousel%2Favatar%2Favatar_larissa_dias.png"
+   ),
+   NearbyTattooArtists(
+      tattoo =  "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fthird_carousel%2Ftattoo_rosto_cobras.png",
+      name = "Larissa Dinis Dinis Dinis",
+      assessment = "4.7",
+      address = "endereço 1 da rua tal de tal",
+      profileImage = "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fsecond_carousel%2Favatar%2Favatar_larissa_dias.png"
+   ),
+   NearbyTattooArtists(
+      tattoo =  "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fthird_carousel%2Ftattoo_rosto_cobras.png",
+      name = "Larissa Dinis Dinis Dinis",
+      assessment = "4.7",
+      address = "endereço 1 da rua tal de tal",
+      profileImage = "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fsecond_carousel%2Favatar%2Favatar_larissa_dias.png"
+   ),
 )
