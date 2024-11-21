@@ -10,6 +10,13 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.Key.Companion.R
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontListFontFamily
+import androidx.compose.ui.text.font.FontWeight
+import connectattoo.composeapp.generated.resources.Raleway_Black
+import connectattoo.composeapp.generated.resources.Res
+import org.jetbrains.compose.resources.Font
 
 @Immutable
 data class ExtendedColors(
@@ -124,6 +131,7 @@ fun ConnectattooTheme(
 
     CompositionLocalProvider(LocalExtendedColors provides extendedColors) {
         MaterialTheme(
+            typography = RalewayTypography(),
             colorScheme = colors,
             shapes = Shapes,
             content = content,

@@ -9,3 +9,4 @@ Desktop.ini
 *.klib
 /test-results/
 *.log
+.env

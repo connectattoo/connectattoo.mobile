@@ -1,7 +1,6 @@
 package br.com.connectattoo.navigation
 
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import br.com.connectattoo.ui.theme.ConnectattooTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -10,10 +9,8 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Preview
 fun App() {
     ConnectattooTheme {
-        Surface {
-            Scaffold {
-                AccountManager()
-            }
+        Scaffold {
+            PresentationManager()
         }
     }
 }
@@ -32,6 +29,14 @@ fun PresentationManager() {
     ConnectattooTheme(
         content = {
             Presentation()
+        }
+    )
+}
+@Composable
+fun MainContent() {
+    ConnectattooTheme(
+        content = {
+            NavHostMainContent()
         }
     )
 }

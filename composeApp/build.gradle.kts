@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.kotlinxSerealization)
 }
 
 kotlin {
@@ -39,6 +40,7 @@ kotlin {
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
 
+
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -54,6 +56,10 @@ kotlin {
 
             //ktor
             implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.json)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.client.logging)
+            implementation(libs.ktor.serialization.kotlinx.json)
 
             //Coroutines
             implementation(libs.ktor.client.core)
@@ -71,6 +77,12 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.lifecycle.viewmodel)
 
+            //DateTime
+            implementation(libs.kotlinx.datetime.v061)
+
+            //Multiplatform Settings
+            implementation(libs.multiplatform.settings)
+            implementation(libs.multiplatform.settings.no.arg)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -108,6 +120,8 @@ android {
 dependencies {
     implementation(libs.annotations)
     implementation(libs.annotations)
+    implementation(libs.annotations)
+    implementation(libs.androidx.core.i18n)
     debugImplementation(compose.uiTooling)
 }
 

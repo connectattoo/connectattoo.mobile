@@ -17,8 +17,8 @@ abstract class RegisterViewModel : ViewModel() {
     open val validationEvents: Flow<ValidationEvent>
         get() = validationEventChannel.receiveAsFlow()
 
-    //abstract fun success(resultPostRegister: User)
-   // abstract fun failed(exception: Throwable?)
+    abstract fun success(resultPostRegister: String)
+     abstract fun failed(exception: Throwable?)
     abstract fun submitData()
 
     abstract fun onEvent(event: RegisterFormEvent)
@@ -26,9 +26,7 @@ abstract class RegisterViewModel : ViewModel() {
     abstract fun enableButton(): Boolean
     abstract fun change(
         name: String? = null,
-        lastName: String? = null,
         email: String? = null,
-        phone: String? = null,
         password: String? = null,
         birthDate: String? = null,
         repeatedPassword: String? = null,

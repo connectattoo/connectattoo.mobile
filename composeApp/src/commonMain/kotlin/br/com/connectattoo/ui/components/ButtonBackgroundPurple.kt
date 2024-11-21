@@ -47,8 +47,6 @@ fun ButtonBackgroundPurple(
             ),
 
             colors = buttonColor,
-
-            contentPadding = PaddingValues(10.sdp)
         ) {
             if (!isLoading) {
                 Text(

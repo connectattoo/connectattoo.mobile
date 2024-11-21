@@ -1,5 +1,7 @@
 package br.com.connectattoo.ui.screen_app.account_manager.registerScreen
 
+import br.com.connectattoo.domain.model.ClientData
+import br.com.connectattoo.domain.model.TokenData
 import br.com.connectattoo.states.TaskState
 import br.com.connectattoo.util.ValidationEvent
 import kotlinx.coroutines.channels.Channel
@@ -17,6 +19,14 @@ class FakeRegisterViewModel : RegisterViewModel() {
     override val taskState: StateFlow<TaskState>
         get() = TODO("Not yet implemented")
 
+    override fun success(resultPostRegister: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun failed(exception: Throwable?) {
+        TODO("Not yet implemented")
+    }
+
     override fun submitData() {
         TODO("Not yet implemented")
     }
@@ -31,9 +41,7 @@ class FakeRegisterViewModel : RegisterViewModel() {
 
     override fun change(
         name: String?,
-        lastName: String?,
         email: String?,
-        phone: String?,
         password: String?,
         birthDate: String?,
         repeatedPassword: String?,
