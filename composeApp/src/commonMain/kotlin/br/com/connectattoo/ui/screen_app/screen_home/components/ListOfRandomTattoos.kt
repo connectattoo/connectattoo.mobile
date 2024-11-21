@@ -3,13 +3,13 @@ package br.com.connectattoo.ui.screen_app.screen_home.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -20,9 +20,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -37,7 +34,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import br.com.connectattoo.domain.model.NearbyTattooArtists
+import br.com.connectattoo.domain.model.RandomTattoo
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.animation.crossfade.CrossfadePlugin
 import com.skydoves.landscapist.coil3.CoilImage
@@ -45,17 +42,23 @@ import com.skydoves.landscapist.components.rememberImageComponent
 import com.skydoves.landscapist.placeholder.shimmer.Shimmer
 import com.skydoves.landscapist.placeholder.shimmer.ShimmerPlugin
 import connectattoo.composeapp.generated.resources.Res
-import connectattoo.composeapp.generated.resources.location_icon
-import connectattoo.composeapp.generated.resources.star
+import connectattoo.composeapp.generated.resources.like_icon
+import connectattoo.composeapp.generated.resources.like_icon_true
+import connectattoo.composeapp.generated.resources.save_icon
+import connectattoo.composeapp.generated.resources.save_icon_true2
 import network.chaintech.sdpcomposemultiplatform.sdp
 import network.chaintech.sdpcomposemultiplatform.ssp
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun ListNearbyTattooArtist(
-    listTattooNearbyTattooArtists: List<NearbyTattooArtists>,
-    onAddMoreClicked: () -> Unit
+fun ListOfRandomTattoos(
+    modifier: Modifier = Modifier, listTattooNearbyTattooArtists: List<RandomTattoo>,
+    onAddMoreClicked: () -> Unit,
+    onSavedClicked: (RandomTattoo, Boolean) -> Unit,
+    onLikeClicked: (RandomTattoo, Boolean) -> Unit,
 ) {
+
+
     val listState = rememberLazyListState()
 
     val initialPadding = remember { 16.dp }
@@ -65,13 +68,18 @@ fun ListNearbyTattooArtist(
     var visibleItemCount by remember { mutableStateOf(4) }
 
     LazyRow(
+        modifier = modifier,
         state = listState,
         contentPadding = PaddingValues(start = paddingStart, end = 16.sdp),
         horizontalArrangement = Arrangement.spacedBy(8.sdp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         items(listTattooNearbyTattooArtists.take(visibleItemCount).size) { actualIndex ->
-            CardNearbyTattooArtist(listTattooNearbyTattooArtists[actualIndex])
+            CardRandomTattoos(
+                listTattooNearbyTattooArtists[actualIndex],
+                onSavedClicked = onSavedClicked,
+                onLikeClicked = onLikeClicked
+            )
         }
 
         item {
@@ -86,14 +94,18 @@ fun ListNearbyTattooArtist(
 }
 
 @Composable
-fun CardNearbyTattooArtist(tattooArtists: NearbyTattooArtists) {
+fun CardRandomTattoos(
+    randomTattoo: RandomTattoo,
+    onSavedClicked: (RandomTattoo, Boolean) -> Unit,
+    onLikeClicked: (RandomTattoo, Boolean) -> Unit,
+) {
+    var save by remember { mutableStateOf(randomTattoo.save) }
+    var like by remember { mutableStateOf(randomTattoo.like) }
     Card(
         modifier = Modifier
-            .width(110.sdp)
-            .height(150.sdp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.White
-        ),
+            .padding(bottom = 24.sdp)
+            .width(90.sdp)
+            .height(105.sdp),
         shape = RoundedCornerShape(8.sdp),
     ) {
 
@@ -111,11 +123,11 @@ fun CardNearbyTattooArtist(tattooArtists: NearbyTattooArtists) {
                     )
 
                 },
-                imageModel = { tattooArtists.tattoo },
+                imageModel = { randomTattoo.tattoo },
                 modifier = Modifier
                     .width(110.sdp)
-                    .height(90.sdp)
-                    .clip(RoundedCornerShape(topStart = 8.sdp, topEnd = 8.sdp)),
+                    .fillMaxHeight()
+                    .clip(RoundedCornerShape(12.sdp)),
 
                 imageOptions = ImageOptions(
                     alignment = Alignment.Center,
@@ -124,41 +136,42 @@ fun CardNearbyTattooArtist(tattooArtists: NearbyTattooArtists) {
 
                     )
             )
-
-            Surface(
-                modifier = Modifier.height(25.sdp).align(Alignment.TopEnd)
-                    .padding(top = 6.sdp, end = 6.sdp),
-                shape = RoundedCornerShape(11.sdp),
-                color = MaterialTheme.colorScheme.primary
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxHeight().padding(horizontal = 8.sdp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(4.sdp)
-                ) {
-                    Image(
-                        modifier = Modifier.size(8.sdp),
-                        painter = painterResource(Res.drawable.star),
-                        contentDescription = "",
-                    )
-                    Text(
-                        modifier = Modifier.offset(y = (-4).sdp),
-                        fontSize = 8.ssp,
-                        fontWeight = FontWeight.Bold,
-                        text = tattooArtists.assessment ?: "5",
-                        color = Color.White,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                }
-            }
-            Column(
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 8.sdp)
-                    .padding(top = 70.sdp)
-                    .fillMaxHeight()
-                    .align(Alignment.BottomCenter),
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .matchParentSize()
+                    .background(Color.Black.copy(alpha = 0.3f))
+            )
+
+            Row(
+                modifier = Modifier.padding(horizontal = 8.sdp).padding(top = 8.sdp)
+                    .align(Alignment.TopEnd),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.sdp)
+            ) {
+                Image(
+                    modifier = Modifier.size(10.sdp).clickable {
+                        save = !save
+                        onSavedClicked(randomTattoo, save)
+                    },
+                    painter = painterResource(if (save) Res.drawable.save_icon_true2 else Res.drawable.save_icon),
+                    contentDescription = "save icon",
+                )
+                Image(
+                    modifier = Modifier.size(10.sdp).clickable {
+                        like = !like
+                        onLikeClicked(randomTattoo, like)
+                    },
+                    painter = painterResource(if (like) Res.drawable.like_icon_true else Res.drawable.like_icon),
+                    contentDescription = "like icon",
+                )
+
+            }
+
+            Row(
+                modifier = Modifier.padding(horizontal = 4.sdp).padding(top = 60.sdp)
+                    .align(Alignment.BottomStart),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(3.sdp)
             ) {
                 CoilImage(
                     component = rememberImageComponent {
@@ -173,9 +186,9 @@ fun CardNearbyTattooArtist(tattooArtists: NearbyTattooArtists) {
                         )
 
                     },
-                    imageModel = { tattooArtists.tattoo },
+                    imageModel = { randomTattoo.tattoo },
                     modifier = Modifier
-                        .size(35.sdp)
+                        .size(22.sdp)
                         .clip(CircleShape)
                         .border(2.sdp, Color.White, CircleShape),
 
@@ -186,33 +199,26 @@ fun CardNearbyTattooArtist(tattooArtists: NearbyTattooArtists) {
 
                         )
                 )
-                Text(
-                    modifier = Modifier.offset(y = (-8).sdp),
-                    fontSize = 8.ssp,
-                    maxLines = 1,
-                    fontWeight = FontWeight.Bold,
-                    text = tattooArtists.name ?: "",
-                    color = Color.Black,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Row(
-                    modifier = Modifier.align(Alignment.CenterHorizontally).offset(y = (-16).sdp).fillMaxHeight(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(4.sdp),
-
-                    ) {
-                    Image(
-                        modifier = Modifier.size(8.sdp).align(Alignment.Bottom),
-                        painter = painterResource(Res.drawable.location_icon),
-                        contentDescription = "",
+                Column(
+                    horizontalAlignment = Alignment.Start,
+                    verticalArrangement = Arrangement.spacedBy(0.sdp)
+                ) {
+                    Text(
+                        modifier = Modifier.offset(y = 3.sdp),
+                        fontSize = 8.ssp,
+                        maxLines = 1,
+                        fontWeight = FontWeight.Bold,
+                        text = randomTattoo.name ?: "",
+                        color = Color.White,
+                        overflow = TextOverflow.Ellipsis
                     )
                     Text(
-                        modifier = Modifier.padding(top = 2.sdp),
-                        fontSize = 9.ssp,
+                        modifier = Modifier.offset(y = (-12).dp),
+                        fontSize = 6.ssp,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
-                        text = tattooArtists.address ?: "",
-                        color = Color.Black
+                        text = "Artista de Tatuagem",
+                        color = Color.White
                     )
                 }
 
@@ -220,5 +226,3 @@ fun CardNearbyTattooArtist(tattooArtists: NearbyTattooArtists) {
         }
     }
 }
-
-

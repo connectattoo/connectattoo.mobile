@@ -39,7 +39,7 @@ fun Header(
                     append("Olá $name, ")
                 }
 
-                append("vamos encontrara \nsua tatuagem perfeita!")
+                append("vamos encontrar \nsua tatuagem perfeita!")
             },
             fontSize = 13.ssp,
             minLines = 2,

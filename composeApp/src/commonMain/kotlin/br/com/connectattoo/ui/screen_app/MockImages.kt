@@ -1,6 +1,7 @@
 package br.com.connectattoo.ui.screen_app
 
 import br.com.connectattoo.domain.model.NearbyTattooArtists
+import br.com.connectattoo.domain.model.RandomTattoo
 import br.com.connectattoo.domain.model.TagHomeScreen
 import br.com.connectattoo.domain.model.TattoosBasedOnTagsHomeScreen
 
@@ -84,28 +85,35 @@ val listTattoosBasedOnTagsHomeScreen = listOf(
 
 val listNearbyTattooArtists = listOf(
    NearbyTattooArtists(
-      tattoo =  "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fthird_carousel%2Ftattoo_rosto_cobras.png",
+      tattoo =  "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fsecond_carousel%2Ftattoo_borboleta.png",
       name = "Larissa Dinis Dinis Dinis",
       assessment = "4.7",
       address = "endereço 1 da rua tal de tal",
       profileImage = "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fsecond_carousel%2Favatar%2Favatar_marcus_freites.png"
    ),
    NearbyTattooArtists(
-      tattoo =  "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fthird_carousel%2Ftattoo_rosto_cobras.png",
+      tattoo =  "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fsecond_carousel%2Ftattoo_borboleta.png",
       name = "Pedro",
       assessment = "4.9",
       address = "3",
       profileImage = "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fsecond_carousel%2Favatar%2Favatar_larissa_dias.png"
    ),
    NearbyTattooArtists(
-      tattoo =  "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fthird_carousel%2Ftattoo_rosto_cobras.png",
+      tattoo =  "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fsecond_carousel%2Ftattoo_borboleta.png",
       name = "Pedro",
       assessment = "5.9",
       address = "5",
       profileImage = "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fsecond_carousel%2Favatar%2Favatar_larissa_dias.png"
    ),
    NearbyTattooArtists(
-      tattoo =  "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fthird_carousel%2Ftattoo_rosto_cobras.png",
+      tattoo =  "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fsecond_carousel%2Ftattoo_borboleta.png",
+      name = "Larissa Dinis Dinis Dinis",
+      assessment = "4.7",
+      address = "endereço 1 da rua tal de tal",
+      profileImage = "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fsecond_carousel%2Favatar%2Favatar_larissa_dias.png"
+   ),
+   NearbyTattooArtists(
+      tattoo =  "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fsecond_carousel%2Ftattoo_Pezkoi.png",
       name = "Larissa Dinis Dinis Dinis",
       assessment = "4.7",
       address = "endereço 1 da rua tal de tal",
@@ -118,11 +126,49 @@ val listNearbyTattooArtists = listOf(
       address = "endereço 1 da rua tal de tal",
       profileImage = "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fsecond_carousel%2Favatar%2Favatar_larissa_dias.png"
    ),
-   NearbyTattooArtists(
+)
+
+val listRandomTattoo = listOf(
+   RandomTattoo(
       tattoo =  "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fthird_carousel%2Ftattoo_rosto_cobras.png",
       name = "Larissa Dinis Dinis Dinis",
-      assessment = "4.7",
-      address = "endereço 1 da rua tal de tal",
+      like = false,
+      save = false,
+      profileImage = "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fsecond_carousel%2Favatar%2Favatar_marcus_freites.png"
+   ),
+   RandomTattoo(
+      tattoo =  "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fthird_carousel%2Ftattoo_rosto_cobras.png",
+      name = "Pedro",
+      like = true,
+      save = false,
+      profileImage = "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fsecond_carousel%2Favatar%2Favatar_larissa_dias.png"
+   ),
+   RandomTattoo(
+      tattoo =  "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fthird_carousel%2Ftattoo_rosto_cobras.png",
+      name = "Pedro",
+      like = true,
+      save = true,
+      profileImage = "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fsecond_carousel%2Favatar%2Favatar_larissa_dias.png"
+   ),
+   RandomTattoo(
+      tattoo =  "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fthird_carousel%2Ftattoo_rosto_cobras.png",
+      name = "Larissa Dinis Dinis Dinis",
+      like = true,
+      save = false,
+      profileImage = "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fsecond_carousel%2Favatar%2Favatar_larissa_dias.png"
+   ),
+   RandomTattoo(
+      tattoo =  "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fthird_carousel%2Ftattoo_rosto_cobras.png",
+      name = "Larissa Dinis Dinis Dinis",
+      like = false,
+      save = true,
+      profileImage = "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fsecond_carousel%2Favatar%2Favatar_larissa_dias.png"
+   ),
+   RandomTattoo(
+      tattoo =  "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fthird_carousel%2Ftattoo_rosto_cobras.png",
+      name = "Larissa Dinis Dinis Dinis",
+      like = false,
+      save = false,
       profileImage = "https://pub-777ce89a8a3641429d92a32c49eac191.r2.dev/home%2Fsecond_carousel%2Favatar%2Favatar_larissa_dias.png"
    ),
 )

@@ -112,7 +112,7 @@ fun CardWithImageAndTags(tattoo: TattoosBasedOnTagsHomeScreen) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 8.sdp)
+                    .padding(start = 6.sdp, bottom = 6.sdp)
                     .align(Alignment.BottomStart),
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Center
