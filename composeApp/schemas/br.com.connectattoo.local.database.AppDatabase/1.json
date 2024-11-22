@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "9d7020f4b9b1117a86014d36c6568acd",
+    "identityHash": "928980156f37c301dbc49eaf3b7e07bf",
     "entities": [
       {
         "tableName": "profile",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `display_name` TEXT, `user_name` TEXT, `birth_date` TEXT, `image_profile` TEXT, `email` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `display_name` TEXT, `user_name` TEXT, `birth_date` TEXT, `image_profile` TEXT, `tags` TEXT NOT NULL, `email` TEXT, `galleries` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -35,9 +35,21 @@
             "affinity": "TEXT"
           },
           {
+            "fieldPath": "tags",
+            "columnName": "tags",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "email",
             "columnName": "email",
             "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "galleries",
+            "columnName": "galleries",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -78,7 +90,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9d7020f4b9b1117a86014d36c6568acd')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '928980156f37c301dbc49eaf3b7e07bf')"
     ]
   }
 }

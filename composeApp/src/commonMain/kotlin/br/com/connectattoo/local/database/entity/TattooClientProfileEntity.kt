@@ -19,9 +19,9 @@ data class TattooClientProfileEntity(
     @ColumnInfo(name = "user_name") val username: String? = "",
     @ColumnInfo(name = "birth_date") val birthDate: String? = "",
     @ColumnInfo(name = "image_profile") val imageProfile: String? = "",
- //   var tags: List<TagEntity> = emptyList(),
+    var tags: List<TagEntity> = emptyList(),
     val email: String? = "",
-  //  var galleries: List<Gallery> = emptyList(),
+    var galleries: List<Gallery> = emptyList(),
 ) {
 
     fun toTattooClientProfile(): TattooClientProfile =
@@ -30,13 +30,13 @@ data class TattooClientProfileEntity(
             username = this.username ?: "",
             birthDate = this.birthDate ?: "",
             imageProfile = this.imageProfile ?: "",
-           // tags = this.tags.toTag(),
+            tags = this.tags.toTag(),
             email = this.email,
-           // galleries = this.galleries.toGalleryList()
+            galleries = this.galleries.toGalleryList()
         )
 
 }
-/*
+
 class TattooClientProfileConverters {
 
     private val json = Json {
@@ -67,5 +67,5 @@ class TattooClientProfileConverters {
         // Converte a string JSON de volta para a lista de Gallery
         return json.decodeFromString(galleryAsString)
     }
-}*/
+}
 

@@ -8,6 +8,7 @@ import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import br.com.connectattoo.local.database.dao.TattooClientProfileDao
 import br.com.connectattoo.local.database.entity.TagEntity
+import br.com.connectattoo.local.database.entity.TattooClientProfileConverters
 import br.com.connectattoo.local.database.entity.TattooClientProfileEntity
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.builtins.serializer
@@ -23,7 +24,7 @@ interface DB{
     exportSchema = true
 )
 @ConstructedBy(AppDatabaseConstructor::class)
-@TypeConverters(TattooClientProfileTypeConverter::class)
+@TypeConverters(TattooClientProfileTypeConverter::class, TattooClientProfileConverters::class)
 abstract class AppDatabase : RoomDatabase(), DB {
     abstract fun tattooClientProfileDao(): TattooClientProfileDao
 
