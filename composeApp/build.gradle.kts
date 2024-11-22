@@ -1,4 +1,3 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -8,6 +7,8 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinxSerealization)
+    alias(libs.plugins.room)
+    alias(libs.plugins.ksp)
 }
 
 kotlin {
@@ -26,6 +27,7 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
+            freeCompilerArgs += "-Xbinary=bundleId=br.com.connectattoo"
         }
     }
     
@@ -62,7 +64,6 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
 
             //Coroutines
-            implementation(libs.ktor.client.core)
             implementation(libs.kotlinx.coroutines.core)
 
             //navgation
@@ -83,6 +84,16 @@ kotlin {
             //Multiplatform Settings
             implementation(libs.multiplatform.settings)
             implementation(libs.multiplatform.settings.no.arg)
+
+            //coil load Images
+            implementation(libs.landscapist.coil3)
+            implementation(libs.landscapist.placeholder)
+            implementation(libs.landscapist.animation)
+            implementation(libs.landscapist.palette)
+
+            //Room
+            implementation(libs.room.runtime)
+            implementation(libs.sqlite.bundled)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -92,7 +103,7 @@ kotlin {
 
 android {
     namespace = "br.com.connectattoo"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "br.com.connectattoo"
@@ -119,9 +130,43 @@ android {
 
 dependencies {
     implementation(libs.annotations)
-    implementation(libs.annotations)
-    implementation(libs.annotations)
     implementation(libs.androidx.core.i18n)
     debugImplementation(compose.uiTooling)
+
+    add("kspAndroid", libs.room.compiler)
+    add("kspIosX64", libs.room.compiler)
+    add("kspIosArm64", libs.room.compiler)
+    add("kspIosSimulatorArm64", libs.room.compiler)
 }
+
+room {
+    schemaDirectory("$projectDir/schemas")
+}
+tasks.withType<Test> {
+    if (name == "mergeDebugAndroidTestAssets") {
+        enabled = false
+    }
+}
+
+tasks.withType<Test> {
+    if (name == "copyRoomSchemasToAndroidTestAssetsDebugAndroidTest") {
+        enabled = false
+    }
+}
+
+tasks.whenTaskAdded {
+    if (name.contains("copyRoomSchemasToAndroidTestAssetsDebugAndroidTest")) {
+        enabled = false
+    }
+}
+
+gradle.taskGraph.whenReady {
+    allTasks.onEach { task ->
+        if (task.name.contains("androidTest") || task.name.contains("connectedAndroidTest")) {
+            task.enabled = false
+        }
+    }
+}
+
+
 

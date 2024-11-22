@@ -20,4 +20,10 @@ class PreferencesHelper(
     fun clearToken() {
         settings.remove(tokenKey)
     }
+    fun updateToken(newToken: String) {
+        if (getToken().isNotEmpty()) {
+            clearToken()
+        }
+        saveToken(newToken)
+    }
 }
