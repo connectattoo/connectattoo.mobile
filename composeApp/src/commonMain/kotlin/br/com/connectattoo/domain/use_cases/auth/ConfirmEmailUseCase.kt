@@ -24,6 +24,7 @@ class ConfirmEmailUseCase(
     private fun NetworkResult<TokenData>.toDataResult(): DataResult<String> {
         return when (this) {
             is NetworkResult.Success -> {
+               // preferencesHelper.updateToken(this.data.accessToken.toString())
                 DataResult.Success(this.data.accessToken.toString())
             }
 
