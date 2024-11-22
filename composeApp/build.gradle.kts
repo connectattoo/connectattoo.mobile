@@ -7,6 +7,8 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinxSerealization)
+    alias(libs.plugins.room)
+    alias(libs.plugins.ksp)
 }
 
 kotlin {
@@ -25,6 +27,7 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
+            freeCompilerArgs += "-Xbinary=bundleId=br.com.connectattoo"
         }
     }
     
@@ -61,7 +64,6 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
 
             //Coroutines
-            implementation(libs.ktor.client.core)
             implementation(libs.kotlinx.coroutines.core)
 
             //navgation
@@ -88,6 +90,10 @@ kotlin {
             implementation(libs.landscapist.placeholder)
             implementation(libs.landscapist.animation)
             implementation(libs.landscapist.palette)
+
+            //Room
+            implementation(libs.room.runtime)
+            implementation(libs.sqlite.bundled)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -124,9 +130,18 @@ android {
 
 dependencies {
     implementation(libs.annotations)
-    implementation(libs.annotations)
-    implementation(libs.annotations)
     implementation(libs.androidx.core.i18n)
     debugImplementation(compose.uiTooling)
+
+    add("kspAndroid", libs.room.compiler)
+    add("kspIosX64", libs.room.compiler)
+    add("kspIosArm64", libs.room.compiler)
+    add("kspIosSimulatorArm64", libs.room.compiler)
 }
+
+room {
+    schemaDirectory("$projectDir/schemas")
+}
+
+
 

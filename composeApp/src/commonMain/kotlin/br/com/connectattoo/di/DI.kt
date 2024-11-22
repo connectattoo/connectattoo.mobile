@@ -8,6 +8,7 @@ import br.com.connectattoo.domain.use_cases.auth.RegisterClientUseCase
 import br.com.connectattoo.domain.use_cases.auth.RegisterTattooArtistUseCase
 import br.com.connectattoo.domain.util.ValidationRepositoryImpl
 import br.com.connectattoo.isIOS
+import br.com.connectattoo.local.database.getRoomDatabase
 import br.com.connectattoo.ui.screen_app.account_manager.accountConfirmation.AccountConfirmationViewModel
 import br.com.connectattoo.ui.screen_app.account_manager.accountConfirmation.AccountConfirmationViewModelImpl
 import br.com.connectattoo.ui.screen_app.account_manager.loginScreen.LoginViewModel
@@ -28,6 +29,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.compose.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
+import org.koin.core.module.Module
 import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
 
@@ -72,11 +74,16 @@ val appModule = module {
 
     single { PreferencesHelper(settings = get()) }
 
+    //Room
+    single { getRoomDatabase(get()) }
+
 }
+
+expect val targetModule: Module
 
 fun initKoin(config: KoinAppDeclaration? = null) {
     startKoin {
         config?.invoke(this)
-        modules(appModule)
+        modules(appModule, targetModule)
     }
 }
